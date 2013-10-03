@@ -26,7 +26,6 @@ namespace Serpis.Ad
 			MySqlDataReader mySqlDataReader = mySqlCommand.ExecuteReader();
 			
 //			int fieldCount = mySqlDataReader.FieldCount;
-//			
 //			for (int index=0; index < fieldCount; index++){
 //				string nombre = mySqlDataReader.GetName(index);
 //			
@@ -37,22 +36,35 @@ namespace Serpis.Ad
 			Console.WriteLine(string.Join("    ", getColumnNames3(mySqlDataReader)));
 			
 			//visualizar datos
+//			while (mySqlDataReader.Read()) {
+//				int fieldCount = mySqlDataReader.FieldCount;
+//				for(int index = 0; index < fieldCount; index++){
+//					object value = mySqlDataReader.GetValue(index);
+//					if (value is DBNull)
+//						value = "null";
+//				
+//					Console.Write(value + "     ");
+//					if (index == fieldCount -1)
+//						Console.WriteLine();
+//				}
+//			}
+			
 			while (mySqlDataReader.Read()) {
-				int fieldCount = mySqlDataReader.FieldCount;
-				for(int index = 0; index < fieldCount; index++){
-				   Console.Write(mySqlDataReader.GetValue(index) + "     ");
-					if (index == fieldCount -1)
-						Console.WriteLine();
+//				string line = "";
+//				for(int index = 0; index < mySqlDataReader.FieldCount; index++){
+//					object value = mySqlDataReader.GetValue(index);
+//					if (value is DBNull)
+//						value = "null";
+//					line = line + value + "     ";
+//				}
+//					Console.WriteLine(line);
+
+					Console.WriteLine (getLine(mySqlDataReader));  //esta sera la llamada al metodo			
 				}
-			}
-			
-			
-			
-			
+				
+				
 			mySqlDataReader.Close();
-						
 			mySqlConnection.Close ();
-			
 			Console.WriteLine("Ok"); //Console.Write();
 					
 		}
@@ -86,5 +98,20 @@ namespace Serpis.Ad
 			return columnNames;
 			
 		}
+		
+		private static string getLine (MySqlDataReader mySqlDataReader){
+			
+			string line = "";
+			for(int index = 0; index < mySqlDataReader.FieldCount; index++){
+				object value = mySqlDataReader.GetValue(index);
+				if (value is DBNull)
+					value = "null";
+				line = line + value + "     ";
+			}
+			return line;	
+			
+			
+		}
+		
 	}
 }
