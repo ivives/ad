@@ -1,78 +1,74 @@
-using System;
 using Gtk;
 using MySql.Data.MySqlClient;
+using System;
+using System.Collections.Generic;
 
 public partial class MainWindow: Gtk.Window
 {	
-	
 	private MySqlConnection mySqlConnection;
 	
 	public MainWindow (): base (Gtk.WindowType.Toplevel)
 	{
 		Build ();
 		
-		mySqlConnection = new MySqlConnection("Server=localhost;Database=dbprueba;" +
-												"user id=root; Password=sistemas");
-		mySqlConnection.Open();
+		mySqlConnection = new MySqlConnection("Server=localhost;Database=dbprueba;User Id=root;Password=sistemas");
+		mySqlConnection.Open ();
 		
-		MySqlCommand mySqlCommand = mySqlConnection.CreateCommand();
-			
-			mySqlCommand.CommandText = "select * from articulo";
-			
-			MySqlDataReader mySqlDataReader = mySqlCommand.ExecuteReader();
+		MySqlCommand mySqlCommand = mySqlConnection.CreateCommand ();
+		mySqlCommand.CommandText = 
+			"select a.id, a.nombre, c.nombre as categoria, a.precio " +
+			"from articulo a left join categoria c " +
+			"on a.categoria = c.id ";
 		
-		int fieldCount = mySqlDataReader.FieldCount;
-			for (int index=0; index < fieldCount; index++){
-				string nombre = mySqlDataReader.GetName(index);
-			
-			treeView.AppendColumn(nombre, new CellRendererText(), "text", index);	
-			
-			}
+		MySqlDataReader mySqlDataReader = mySqlCommand.ExecuteReader();
 		
-//		treeView.AppendColumn("id" , new CellRendererText(), "text", 0);
-//		treeView.AppendColumn("nombre" , new CellRendererText(), "text", 1);
-//		treeView.AppendColumn("categoria" , new CellRendererText(), "text", 2);
-//		treeView.AppendColumn("precio" , new CellRendererText(), "text", 3);
-//		
+		string[] columnNames = getColumnNames(mySqlDataReader);
 		
-		Type[] types = new Type[4];
-		for (int index = 0; index < fieldCount; index++)
-			types[index] = typeof(string);
+		appendColumns(columnNames);
 		
-//		ListStore listStore = new ListStore(typeof(string), typeof(string), typeof(string), typeof(string));
-		ListStore listStore = new ListStore(types);
-		
-		while (mySqlDataReader.Read()) {
-				string line = "";
-				for(int index = 0; index < mySqlDataReader.FieldCount; index++){
-					object value = mySqlDataReader.GetValue(index);
-					if (value is DBNull)
-						value = "null";
-					line = line + value + "     ";
-				}
-		string[] values = new string[]{line};
-		for (int index = 0; index < fieldCount; index++)
-			values[index] = index.ToString();
-		listStore.AppendValues(values);
-			
-		
+		ListStore listStore = createListStore(mySqlDataReader.FieldCount);
+
+		while (mySqlDataReader.Read ()) {
+			List<string> values = new List<string>();
+			for (int index = 0; index < mySqlDataReader.FieldCount; index++)
+				values.Add ( mySqlDataReader.GetValue (index).ToString() );
+			listStore.AppendValues(values.ToArray());
+		}
+		mySqlDataReader.Close ();
 		
 		treeView.Model = listStore;
-			
-			
-			
-		}
 		
-//		listStore.AppendValues ("1", "uno", "1", "1.5");
-//		string[] values = new string[]{"1", "uno", "1", "1.5"};
-//		for (int index = 0; index < fieldCount; index++)
-//			values[index] = index.ToString();
-//		listStore.AppendValues(values);
-//			
-//		listStore.AppendValues ("2", "dos");
-//		listStore.AppendValues ("3", "tres");
-//		
-//		treeView.Model = listStore;
+		treeView.Selection.Changed += delegate {
+			TreeIter treeIter;
+			Console.WriteLine("===========");
+			if (treeView.Selection.GetSelected(out treeIter)){
+				Console.WriteLine("listStore.GetPath(treeIter) =" + listStore.GetPath(treeIter));
+				Console.WriteLine("listStore.GetValue(treeIter, 0) =" + listStore.GetValue(treeIter, 0));
+				Console.WriteLine("listStore.GetValue(treeIter, 1) =" + listStore.GetValue(treeIter, 1));
+			}else
+				Console.WriteLine("Ninguno seleccionado");
+					
+		};
+	}
+	
+	private string[] getColumnNames(MySqlDataReader mySqlDataReader) {
+		List<string> columnNames = new List<string>();
+		for (int index = 0; index < mySqlDataReader.FieldCount; index++)
+			columnNames.Add (mySqlDataReader.GetName (index));
+		return columnNames.ToArray ();
+	}
+	
+	private void appendColumns(string[] columnNames) {
+		int index = 0;
+		foreach (string columnName in columnNames) 
+			treeView.AppendColumn (columnName, new CellRendererText(), "text", index++);
+	}
+	
+	private ListStore createListStore(int fieldCount) {
+		Type[] types = new Type[fieldCount];
+		for (int index = 0; index < fieldCount; index++)
+			types[index] = typeof(string);
+		return new ListStore(types);
 	}
 	
 	protected void OnDeleteEvent (object sender, DeleteEventArgs a)
@@ -80,6 +76,7 @@ public partial class MainWindow: Gtk.Window
 		Application.Quit ();
 		a.RetVal = true;
 		
-		mySqlConnection.Close();
+		mySqlConnection.Close ();
 	}
 }
+
