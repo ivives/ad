@@ -61,6 +61,7 @@
       <Private>False</Private>
       <Package>mysql-connector-net</Package>
     </Reference>
+    <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="gtk-gui\gui.stetic">
