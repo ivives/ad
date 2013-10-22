@@ -7,7 +7,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{569F0791-4AA8-4B96-908E-9BB8C52831E9}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>PTreeView</RootNamespace>
+    <RootNamespace>Serpis.Ad</RootNamespace>
     <AssemblyName>PTreeView</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -73,6 +73,7 @@
     <Compile Include="gtk-gui\MainWindow.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="TreeViewHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
