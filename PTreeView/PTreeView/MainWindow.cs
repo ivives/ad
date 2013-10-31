@@ -17,8 +17,8 @@ public partial class MainWindow: Gtk.Window
 		mySqlConnection.Open ();
 		
 		
-		string selectSql ="select a.id, a.nombre, c.nombre as categoria, a.precio from articulo a left join categoria c " +
-			"on a.categoria = c.id ";
+		string selectSql ="select a.id, a.nombre, c.nombre as categoria, a.precio " +
+			"from articulo a left join categoria c on a.categoria = c.id ";
 		
 		TreeViewHelper treeViewHelper = new TreeViewHelper(treeView, mySqlConnection, selectSql);
 				

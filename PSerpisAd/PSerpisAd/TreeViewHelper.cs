@@ -12,7 +12,6 @@ namespace Serpis.Ad
 		private ListStore listStore;
 		public TreeViewHelper (TreeView treeView, IDbConnection dbConnection, string selectSql)
 		{
-			
 			this.treeView = treeView;
 			IDbCommand dbCommand = dbConnection.CreateCommand ();
 			dbCommand.CommandText = selectSql;
@@ -32,16 +31,13 @@ namespace Serpis.Ad
 				listStore.AppendValues(values.ToArray());
 			}
 			dataReader.Close ();
-			
 			treeView.Model = listStore;
-			
 		}
 		
 		public ListStore ListStore{
 			get {return listStore;}
 		}
-		
-		
+				
 		private string[] getColumnNames(IDataReader dataReader) {
 			List<string> columnNames = new List<string>();
 			for (int index = 0; index < dataReader.FieldCount; index++)
