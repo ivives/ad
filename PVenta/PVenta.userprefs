@@ -1,14 +1,16 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="PTreeView/MainWindow.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="PVenta/MainWindow.cs">
     <Files>
-      <File FileName="PTreeView/MainWindow.cs" Line="30" Column="3" />
-      <File FileName="PTreeView/Main.cs" Line="1" Column="1" />
+      <File FileName="PVenta/Main.cs" Line="1" Column="1" />
+      <File FileName="PVenta/MainWindow.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="PTreeView" expanded="True" />
+          <Node name="PVenta" expanded="True">
+            <Node name="MainWindow.cs" selected="True" />
+          </Node>
         </State>
       </Pad>
       <Pad Id="ClassPad">
