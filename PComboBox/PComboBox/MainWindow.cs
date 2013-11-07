@@ -2,6 +2,7 @@ using Gtk;
 using MySql.Data.MySqlClient;
 using System;
 using System.Data;
+using Serpis.Ad;
 
 
 public partial class MainWindow: Gtk.Window
@@ -18,50 +19,16 @@ public partial class MainWindow: Gtk.Window
 		
 		dbConnection.Open();
 		
-//		comboBox.AppendText("Uno");
-//		comboBox.AppendText("Dos");
-//		comboBox.AppendText("Tres");
-		
-		int initialId = 0;
-		
-		CellRendererText cellRendererText = new CellRendererText();
-		comboBox.PackStart(cellRendererText, false);
-		comboBox.AddAttribute(cellRendererText, "text", 1);
-				
-		ListStore listStore = new ListStore (typeof(int), typeof(string));
-		
-//		listStore.AppendValues(0, "<sin asignar>");
-                                                                                                                                                                 		TreeIter initialTreeIter = listStore.AppendValues(0, "<sin asignar>");
-//		TreeIter initialTreeIter = TreeIter.Zero;
-			
-		IDbCommand dbCommand = dbConnection.CreateCommand ();
-//		dbCommand.CommandText = "select * from categoria";
-		dbCommand.CommandText = "select id, nombre from categoria";
-		IDataReader dataReader = dbCommand.ExecuteReader ();
-		
-		while (dataReader.Read ()) {
-			int id = (int)dataReader["id"];
-			string nombre = (string)dataReader["nombre"];
-			TreeIter treeIter = listStore.AppendValues(id, nombre);	
-			if (id == initialId)
-				initialTreeIter = treeIter;
-		}
-		dataReader.Close ();
-		
-//		listStore.AppendValues(1, "Elemento uno");
-//		listStore.AppendValues(2, "Elemento dos");
-//		listStore.AppendValues(4, "Elemento cuatro");
-		
-		comboBox.Model = listStore;
-//		if (!initialTreeIter.Equals(TreeIter.Zero))
-			comboBox.SetActiveIter(initialTreeIter);
-		
+		ComboBoxHelper comboBoxHelper = new ComboBoxHelper(
+			comboBox,
+			dbConnection,
+			"id",
+			"nombre",
+			"categoria",
+			2);
+	
 		comboBox.Changed += delegate{
-			TreeIter treeIter;
-			comboBox.GetActiveIter(out treeIter);
-			int id = (int)listStore.GetValue (treeIter, 0);
-			
-			Console.WriteLine("comboBox.Changed id = {0}", id);
+			Console.WriteLine("comboBox.Changed id = {0}", comboBoxHelper.Id);
 		};
 		
 	}

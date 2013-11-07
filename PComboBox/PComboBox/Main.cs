@@ -1,7 +1,7 @@
 using System;
 using Gtk;
 
-namespace PComboBox
+namespace Serpis.Ad
 {
 	class MainClass
 	{
