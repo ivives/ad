@@ -1,7 +1,7 @@
 using System;
 using Gtk;
 
-namespace PVenta
+namespace PSerpis.Ad
 {
 	class MainClass
 	{

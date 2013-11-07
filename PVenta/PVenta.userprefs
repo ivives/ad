@@ -2,14 +2,14 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
   <MonoDevelop.Ide.Workbench ActiveDocument="PVenta/MainWindow.cs">
     <Files>
-      <File FileName="PVenta/Main.cs" Line="1" Column="1" />
-      <File FileName="PVenta/MainWindow.cs" Line="1" Column="1" />
+      <File FileName="PVenta/Main.cs" Line="5" Column="2" />
+      <File FileName="PVenta/MainWindow.cs" Line="45" Column="5" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="PVenta" expanded="True">
-            <Node name="MainWindow.cs" selected="True" />
+            <Node name="References" expanded="True" selected="True" />
           </Node>
         </State>
       </Pad>
