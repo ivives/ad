@@ -33,16 +33,36 @@ public partial class MainWindow: Gtk.Window
 //			vbox1.Add (button);
 //		}
 		
+		Console.WriteLine("Initial notebook.CurrentPage0{0}", notebook.CurrentPage);
+		
+		notebook.SwitchPage += delegate {
+			Console.WriteLine("SwitchPage notebook.CurrentPage0{0}", notebook.CurrentPage);
+		};
+		
+		notebook.PageRemoved += delegate {
+			Console.WriteLine("PageRemoved notebook.CurrentPage0{0}", notebook.CurrentPage);	
+		};
 		foreach (string stockId in new string[]{Stock.Add, Stock.Close, Stock.Edit}){
 		
 			Button button = new Button(stockId);
 			button.Visible = true;
-			notebook.AppendPage (button, new Label("Pestaña " + stockId));
+			
+			HBox hbox = new HBox();
+			Label label = new Label ("Pestaña " + stockId);
+			hbox.Add (label);
+			label.Visible = true;
+			Button buttonTap = new Button();
+			buttonTap.Image = Image.NewFromIconName (Stock.Close, IconSize.Button);
+			buttonTap.Visible = true;
+			hbox.Add (buttonTap);
+			notebook.AppendPage (button, hbox);
+			
+			buttonTap.Clicked += delegate {
+				button.Destroy();	
+			};
 		}
 		
-		notebook.ChangeCurrentPage += delegate {
 				
-		};
 		
 	}
 	

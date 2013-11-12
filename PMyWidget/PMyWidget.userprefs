@@ -1,0 +1,29 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="PMyWidget/MyWidget.cs">
+    <Files>
+      <File FileName="PMyWidget/Main.cs" Line="17" Column="1" />
+      <File FileName="PMyWidget/MainWindow.cs" Line="14" Column="20" />
+      <File FileName="PMyWidget/MyWidget.cs" Line="24" Column="20" />
+      <File FileName="PMyWidget/IEntityListView.cs" Line="12" Column="38" />
+      <File FileName="PMyWidget/ArticuloListView.cs" Line="21" Column="44" />
+      <File FileName="PMyWidget/CategoriaListView.cs" Line="17" Column="31" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True">
+          <Node name="PMyWidget" expanded="True">
+            <Node name="MyWidget.cs" selected="True" />
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="ClassPad">
+        <State expanded="True" selected="True" />
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
