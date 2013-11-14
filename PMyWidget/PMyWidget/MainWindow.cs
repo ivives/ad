@@ -8,33 +8,41 @@ public partial class MainWindow: Gtk.Window
 	public MainWindow (): base (Gtk.WindowType.Toplevel)
 	{
 		Build ();
-		mainButton.Sensitive = false;
+		CategoriaListView categoriaListView = new CategoriaListView();
+		notebook.AppendPage ( new ArticuloListView(), new Label("Articulos"));
+		notebook.AppendPage ( categoriaListView, new Label("Categorias"));
 		
-		ArticuloListView articuloListView = new ArticuloListView();
-		CategoriaListView categoriaLisView = new CategoriaListView();
-		
-		notebook.AppendPage (new ArticuloListView(), new Label("Articulos"));
-		notebook.AppendPage (new CategoriaListView(), new Label("Categorias"));
-		
-		notebook.SwitchPage += delegate {
+		newAction.Activated += delegate {
 			IEntityListView entityListView = (IEntityListView)notebook.CurrentPageWidget;
-			mainButton.Sensitive = entityListView.HasSelected;
-		};
-		
-		articuloListView.SelectedChanged += delegate {
-			mainButton.Sensitive = articuloListView.HasSelected;
-		};
-		
-		categoriaLisView.SelectedChanged += delegate {
-			mainButton.Sensitive = categoriaLisView.HasSelected;
-		};
-		
-		mainButton.Clicked += delegate {
-			IEntityListView entityListView = (IEntityListView)notebook.CurrentPageWidget;
+			Console.WriteLine("entityListView.GetType()={0}", entityListView.GetType());
 			entityListView.New();
 		};
 		
-		
+//		mainButton.Sensitive = false;
+//
+//		ArticuloListView articuloListView = new ArticuloListView();
+//		CategoriaListView categoriaListView = new CategoriaListView();
+//		
+//		notebook.AppendPage ( articuloListView, new Label("Articulos"));
+//		notebook.AppendPage ( categoriaListView, new Label("Categorias"));
+//		
+//		notebook.SwitchPage += delegate {
+//			IEntityListView entityListView = (IEntityListView)notebook.CurrentPageWidget;
+//			mainButton.Sensitive = entityListView.HasSelected;
+//		};
+//		
+//		articuloListView.SelectedChanged += delegate {
+//			mainButton.Sensitive = articuloListView.HasSelected;
+//		};
+//		
+//		categoriaListView.SelectedChanged += delegate {
+//			mainButton.Sensitive = categoriaListView.HasSelected;
+//		};
+//		
+//		mainButton.Clicked += delegate {
+//			IEntityListView entityListView = (IEntityListView)notebook.CurrentPageWidget;
+//			entityListView.Edit ();
+//		};
 	}
 	
 	protected void OnDeleteEvent (object sender, DeleteEventArgs a)

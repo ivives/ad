@@ -7,7 +7,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{9E0AAED7-1BE5-4E80-A150-5EC4320D78A4}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>PMyWidget</RootNamespace>
+    <RootNamespace>Serpis.Ad</RootNamespace>
     <AssemblyName>PMyWidget</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">

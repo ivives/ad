@@ -3,14 +3,22 @@
 
 public partial class MainWindow
 {
+	private global::Gtk.UIManager UIManager;
+	private global::Gtk.Action newAction;
 	private global::Gtk.VBox vbox2;
-	private global::Gtk.Button mainButton;
+	private global::Gtk.Toolbar toolbar1;
 	private global::Gtk.Notebook notebook;
 	
 	protected virtual void Build ()
 	{
 		global::Stetic.Gui.Initialize (this);
 		// Widget MainWindow
+		this.UIManager = new global::Gtk.UIManager ();
+		global::Gtk.ActionGroup w1 = new global::Gtk.ActionGroup ("Default");
+		this.newAction = new global::Gtk.Action ("newAction", null, null, "gtk-new");
+		w1.Add (this.newAction, null);
+		this.UIManager.InsertActionGroup (w1, 0);
+		this.AddAccelGroup (this.UIManager.AccelGroup);
 		this.Name = "MainWindow";
 		this.Title = global::Mono.Unix.Catalog.GetString ("MainWindow");
 		this.WindowPosition = ((global::Gtk.WindowPosition)(4));
@@ -19,24 +27,23 @@ public partial class MainWindow
 		this.vbox2.Name = "vbox2";
 		this.vbox2.Spacing = 6;
 		// Container child vbox2.Gtk.Box+BoxChild
-		this.mainButton = new global::Gtk.Button ();
-		this.mainButton.CanFocus = true;
-		this.mainButton.Name = "mainButton";
-		this.mainButton.UseUnderline = true;
-		this.mainButton.Label = global::Mono.Unix.Catalog.GetString ("Editar");
-		this.vbox2.Add (this.mainButton);
-		global::Gtk.Box.BoxChild w1 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.mainButton]));
-		w1.Position = 0;
-		w1.Expand = false;
-		w1.Fill = false;
+		this.UIManager.AddUiFromString ("<ui><toolbar name='toolbar1'><toolitem name='newAction' action='newAction'/></toolbar></ui>");
+		this.toolbar1 = ((global::Gtk.Toolbar)(this.UIManager.GetWidget ("/toolbar1")));
+		this.toolbar1.Name = "toolbar1";
+		this.toolbar1.ShowArrow = false;
+		this.vbox2.Add (this.toolbar1);
+		global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.toolbar1]));
+		w2.Position = 0;
+		w2.Expand = false;
+		w2.Fill = false;
 		// Container child vbox2.Gtk.Box+BoxChild
 		this.notebook = new global::Gtk.Notebook ();
 		this.notebook.CanFocus = true;
 		this.notebook.Name = "notebook";
 		this.notebook.CurrentPage = -1;
 		this.vbox2.Add (this.notebook);
-		global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.notebook]));
-		w2.Position = 1;
+		global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.notebook]));
+		w3.Position = 1;
 		this.Add (this.vbox2);
 		if ((this.Child != null)) {
 			this.Child.ShowAll ();
