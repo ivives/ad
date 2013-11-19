@@ -5,9 +5,12 @@ public partial class MainWindow
 {
 	private global::Gtk.UIManager UIManager;
 	private global::Gtk.Action newAction;
+	private global::Gtk.Action editAction;
+	private global::Gtk.Action deleteAction;
 	private global::Gtk.VBox vbox2;
 	private global::Gtk.Toolbar toolbar1;
 	private global::Gtk.Notebook notebook;
+	private global::Gtk.Label label1;
 	
 	protected virtual void Build ()
 	{
@@ -17,6 +20,10 @@ public partial class MainWindow
 		global::Gtk.ActionGroup w1 = new global::Gtk.ActionGroup ("Default");
 		this.newAction = new global::Gtk.Action ("newAction", null, null, "gtk-new");
 		w1.Add (this.newAction, null);
+		this.editAction = new global::Gtk.Action ("editAction", null, null, "gtk-edit");
+		w1.Add (this.editAction, null);
+		this.deleteAction = new global::Gtk.Action ("deleteAction", null, null, "gtk-delete");
+		w1.Add (this.deleteAction, null);
 		this.UIManager.InsertActionGroup (w1, 0);
 		this.AddAccelGroup (this.UIManager.AccelGroup);
 		this.Name = "MainWindow";
@@ -27,7 +34,7 @@ public partial class MainWindow
 		this.vbox2.Name = "vbox2";
 		this.vbox2.Spacing = 6;
 		// Container child vbox2.Gtk.Box+BoxChild
-		this.UIManager.AddUiFromString ("<ui><toolbar name='toolbar1'><toolitem name='newAction' action='newAction'/></toolbar></ui>");
+		this.UIManager.AddUiFromString ("<ui><toolbar name='toolbar1'><toolitem name='newAction' action='newAction'/><toolitem name='editAction' action='editAction'/><toolitem name='deleteAction' action='deleteAction'/></toolbar></ui>");
 		this.toolbar1 = ((global::Gtk.Toolbar)(this.UIManager.GetWidget ("/toolbar1")));
 		this.toolbar1.Name = "toolbar1";
 		this.toolbar1.ShowArrow = false;
@@ -40,10 +47,19 @@ public partial class MainWindow
 		this.notebook = new global::Gtk.Notebook ();
 		this.notebook.CanFocus = true;
 		this.notebook.Name = "notebook";
-		this.notebook.CurrentPage = -1;
+		this.notebook.CurrentPage = 0;
+		// Notebook tab
+		global::Gtk.Label w3 = new global::Gtk.Label ();
+		w3.Visible = true;
+		this.notebook.Add (w3);
+		this.label1 = new global::Gtk.Label ();
+		this.label1.Name = "label1";
+		this.label1.LabelProp = global::Mono.Unix.Catalog.GetString ("page1");
+		this.notebook.SetTabLabel (w3, this.label1);
+		this.label1.ShowAll ();
 		this.vbox2.Add (this.notebook);
-		global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.notebook]));
-		w3.Position = 1;
+		global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.notebook]));
+		w4.Position = 1;
 		this.Add (this.vbox2);
 		if ((this.Child != null)) {
 			this.Child.ShowAll ();

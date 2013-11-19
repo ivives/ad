@@ -8,6 +8,9 @@ namespace Serpis.Ad
 		public static void Main (string[] args)
 		{
 			Application.Init ();
+			
+			App.Instance.DbConnection = null; //TODO asignar objeto de conexion
+			
 			MainWindow win = new MainWindow ();
 			win.Show ();
 			Application.Run ();

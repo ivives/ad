@@ -15,6 +15,16 @@
         <property name="Label" translatable="yes" />
         <property name="StockId">gtk-new</property>
       </action>
+      <action id="editAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes" />
+        <property name="StockId">gtk-edit</property>
+      </action>
+      <action id="deleteAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes" />
+        <property name="StockId">gtk-delete</property>
+      </action>
     </action-group>
     <property name="MemberName" />
     <property name="Title" translatable="yes">MainWindow</property>
@@ -30,6 +40,8 @@
             <property name="ShowArrow">False</property>
             <node name="toolbar1" type="Toolbar">
               <node type="Toolitem" action="newAction" />
+              <node type="Toolitem" action="editAction" />
+              <node type="Toolitem" action="deleteAction" />
             </node>
           </widget>
           <packing>
@@ -43,7 +55,19 @@
           <widget class="Gtk.Notebook" id="notebook">
             <property name="MemberName" />
             <property name="CanFocus">True</property>
-            <property name="CurrentPage">-1</property>
+            <property name="CurrentPage">0</property>
+            <child>
+              <placeholder />
+            </child>
+            <child>
+              <widget class="Gtk.Label" id="label1">
+                <property name="MemberName" />
+                <property name="LabelProp" translatable="yes">page1</property>
+              </widget>
+              <packing>
+                <property name="type">tab</property>
+              </packing>
+            </child>
           </widget>
           <packing>
             <property name="Position">1</property>

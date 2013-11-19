@@ -1,13 +1,17 @@
 using Gtk;
 using System;
+using System.Data;
 
 namespace Serpis.Ad
 {
 	[System.ComponentModel.ToolboxItem(true)]
 	public partial class MyWidget : Gtk.Bin, IEntityListView
 	{
-		public MyWidget ()
+		protected IDbConnection dbConnection;
+		public MyWidget (IDbConnection dbConnection)
 		{
+			this.dbConnection = dbConnection;
+			
 			this.Build ();
 			Visible = true;
 			
@@ -23,6 +27,12 @@ namespace Serpis.Ad
 //			treeView.Selection.Changed += delegate {
 //				SelectedChanged(this, EventArgs.Empty);
 //			};
+			
+			
+			treeView.Selection.Changed += delegate {
+				if (SelectedChanged != null)
+					SelectedChanged(this, EventArgs.Empty);
+			};
 		}
 		
 		public TreeView TreeView {
@@ -48,10 +58,23 @@ namespace Serpis.Ad
 //		#endregion
 
 		#region IEntityListView implementation
-		public virtual void New ()
-		{
+		public virtual void New (){
 			Console.WriteLine("MyWidget.New()");
 		}
+		
+		public virtual void Edit (){
+			Console.WriteLine("MyWidget.Edit()");
+		}
+		
+		public virtual void Delete (){
+			Console.WriteLine("MyWidget.Delete()");
+		}
+		
+		public bool HasSelected {
+			get { return treeView.Selection.CountSelectedRows() > 0;}
+		}
+		
+		public event EventHandler SelectedChanged;
 		#endregion
 	}
 }
