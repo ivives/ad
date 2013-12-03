@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>10.0.0</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{569F0791-4AA8-4B96-908E-9BB8C52831E9}</ProjectGuid>
+    <ProjectGuid>{93016426-1BAB-400C-82D5-B358028A4E97}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>Serpis.Ad</RootNamespace>
     <AssemblyName>PTreeView</AssemblyName>

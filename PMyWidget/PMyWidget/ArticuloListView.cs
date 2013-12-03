@@ -1,53 +1,39 @@
 using Gtk;
 using System;
-using System.Data;
 
 namespace Serpis.Ad
 {
-	public class ArticuloListView : MyWidget
+	public class ArticuloListView : EntityListView
 	{
-		public ArticuloListView (IDbConnection dbConnection) : base(dbConnection)
+		public ArticuloListView ()
 		{
 			
-			TreeView.AppendColumn("id", new CellRendererText(), "text", 0);
-			TreeView.AppendColumn("nombre", new CellRendererText(), "text", 1);
-			TreeView.AppendColumn("categoria", new CellRendererText(), "text", 2);
-			TreeView.AppendColumn("precio", new CellRendererText(), "text", 3);
-			ListStore listStore = new ListStore(typeof(int), typeof(string));
-			TreeView.Model = listStore;
-			listStore.AppendValues (1, "Articulo 1", "Cat. 1", 1); 
-			listStore.AppendValues (2, "Articulo 2", "Cat. 2", 2);
-		}
+			treeView.AppendColumn("id", new CellRendererText(), "text", 0);
+			treeView.AppendColumn("nombre", new CellRendererText(), "text", 1);
+			treeView.AppendColumn("categoria", new CellRendererText(), "text", 2);
+			treeView.AppendColumn("precio", new CellRendererText(), "text", 3);
+			
+			ListStore listStore = new ListStore(typeof(int), typeof(string), typeof(string), typeof(string));
+			listStore.AppendValues(1, "Articulo 1", "Categoria 1", "1.5");
+			listStore.AppendValues(2, "Articulo 2", "Categoria 2", "2.5");
+			
+			treeView.Model = listStore;
 		
-		public override void New ()
-		{
 			
-			Console.WriteLine("ArticuloListView.New()");
+			Gtk.Action editAction = new Gtk.Action("editAction", null, null, Stock.Edit);
+			actionGroup.Add (editAction);
+			
+			Gtk.Action newAction = new Gtk.Action("newAction", null, null, Stock.New);
+			actionGroup.Add (newAction);
+			
+			editAction.Sensitive = false;
+			
+			treeView.Selection.Changed += delegate {
+				editAction.Sensitive = treeView.Selection.CountSelectedRows() > 0;
+			};
+			
 		}
-			
-			
-		
-//		#region implemented abstract members of Serpis.Ad.MyWidget
-//		public override void New ()
-//		{
-//			Console.WriteLine("ArticuloListView.New");
-//		}
-//
-//		public override void Edit ()
-//		{
-//			Console.WriteLine("ArticuloListView.Edit");
-//		}
-//
-//		public override void Delete ()
-//		{
-//			throw new NotImplementedException ();
-//		}
-//
-//		public override void Refresh ()
-//		{
-//			throw new NotImplementedException ();
-//		}
-//		#endregion
+				
 	}
 }
 

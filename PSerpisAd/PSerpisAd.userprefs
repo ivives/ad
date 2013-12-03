@@ -1,9 +1,10 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="PSerpisAd/ComboBoxHelper.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="PSerpisAd/EntityListView.cs">
     <Files>
-      <File FileName="PSerpisAd/TreeViewHelper.cs" Line="1" Column="1" />
-      <File FileName="PSerpisAd/ComboBoxHelper.cs" Line="1" Column="1" />
+      <File FileName="PSerpisAd/IEntityListView.cs" Line="1" Column="1" />
+      <File FileName="PSerpisAd/UiManagerHelper.cs" Line="1" Column="1" />
+      <File FileName="PSerpisAd/EntityListView.cs" Line="6" Column="9" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

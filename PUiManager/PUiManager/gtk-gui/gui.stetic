@@ -6,14 +6,15 @@
   </configuration>
   <import>
     <widget-library name="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
-    <widget-library name="../bin/Debug/PVenta.exe" internal="true" />
+    <widget-library name="../bin/Debug/PUiManager.exe" internal="true" />
+    <widget-library name="../../../PSerpisAd/PSerpisAd/bin/Debug/PSerpisAd.dll" />
   </import>
   <widget class="Gtk.Window" id="MainWindow" design-size="400 300">
     <action-group name="Default">
-      <action id="newAction">
+      <action id="executeAction">
         <property name="Type">Action</property>
         <property name="Label" translatable="yes" />
-        <property name="StockId">gtk-new</property>
+        <property name="StockId">gtk-execute</property>
       </action>
     </action-group>
     <property name="MemberName" />
@@ -25,12 +26,12 @@
         <property name="MemberName" />
         <property name="Spacing">6</property>
         <child>
-          <widget class="Gtk.Button" id="mainButton">
+          <widget class="Gtk.Toolbar" id="toolbar">
             <property name="MemberName" />
-            <property name="CanFocus">True</property>
-            <property name="Type">TextOnly</property>
-            <property name="Label" translatable="yes">GtkButton</property>
-            <property name="UseUnderline">True</property>
+            <property name="ShowArrow">False</property>
+            <node name="toolbar" type="Toolbar">
+              <node type="Toolitem" action="executeAction" />
+            </node>
           </widget>
           <packing>
             <property name="Position">0</property>
@@ -43,15 +44,7 @@
           <placeholder />
         </child>
         <child>
-          <widget class="Gtk.Notebook" id="notebook">
-            <property name="MemberName" />
-            <property name="CanFocus">True</property>
-            <property name="CurrentPage">-1</property>
-          </widget>
-          <packing>
-            <property name="Position">2</property>
-            <property name="AutoSize">False</property>
-          </packing>
+          <placeholder />
         </child>
       </widget>
     </child>

@@ -16,70 +16,74 @@ public partial class MainWindow: Gtk.Window
 		mySqlConnection = new MySqlConnection("Server=localhost;Database=dbprueba;User Id=root;Password=sistemas");
 		mySqlConnection.Open ();
 		
-		
-		string selectSql ="select a.id, a.nombre, c.nombre as categoria, a.precio " +
-			"from articulo a left join categoria c on a.categoria = c.id ";
-		
+		string selectSql = 
+			"select a.id, a.nombre, c.nombre as categoria, a.precio " +
+			"from articulo a left join categoria c " +
+			"on a.categoria = c.id ";
 		TreeViewHelper treeViewHelper = new TreeViewHelper(treeView, mySqlConnection, selectSql);
-				
+		
 		ListStore listStore = treeViewHelper.ListStore;
 		
 		editAction.Sensitive = false;
-		deleteAction.Sensitive =false;
-		
+		deleteAction.Sensitive = false;
 		
 		editAction.Activated += delegate {
-			//Cuando entra hay algun elemento seleccionado
 			if (treeView.Selection.CountSelectedRows() == 0)
 				return;
-			
-			TreeIter treeIter; //Para mostrar la informacion de la linea seleccionada para editar
+			TreeIter treeIter;
 			treeView.Selection.GetSelected(out treeIter);
 			object id = listStore.GetValue (treeIter, 0);
 			object nombre = listStore.GetValue (treeIter, 1);
 			
-			MessageDialog md = new MessageDialog (this, 
-                                    DialogFlags.DestroyWithParent,
-	                              	MessageType.Info, 
-                                    ButtonsType.Ok, 
-			                        "Seleccionado Id= {0} Nombre= {1} ", id, nombre);
-			md.Title = "Editar elemento";
-			md.Run ();
-			md.Destroy();			
+			MessageDialog messageDialog = new MessageDialog(this,
+                DialogFlags.DestroyWithParent,
+                MessageType.Info,
+                ButtonsType.Ok,
+                "Seleccionado Id={0} Nombre={1}", id, nombre);
+			messageDialog.Title = "Este es el título del mensaje";
+			messageDialog.Run ();
+			messageDialog.Destroy ();
 		};
-		
 		
 		deleteAction.Activated += delegate {
 			if (treeView.Selection.CountSelectedRows() == 0)
 				return;
-			
-			TreeIter treeIter; //Para mostrar la informacion de la linea seleccionada para borrar
+			TreeIter treeIter;
 			treeView.Selection.GetSelected(out treeIter);
 			object id = listStore.GetValue (treeIter, 0);
 			
-			MessageDialog md = new MessageDialog (this, 
-                                    DialogFlags.DestroyWithParent,
-	                              	MessageType.Question, 
-                                    ButtonsType.YesNo, 
-			                        "¿Quieres eliminar el elemento seleccionado?");
-			md.Title = "Eliminar elemento";
-			ResponseType response = (ResponseType) md.Run ();
-			if (response == ResponseType.Yes) {
+			MessageDialog messageDialog = new MessageDialog(this,
+                DialogFlags.DestroyWithParent,
+                MessageType.Question,
+                ButtonsType.YesNo,
+                "¿Quieres eliminar el elemento seleccionado?");
+			messageDialog.Title = "Eliminar elemento";
+			ResponseType response = (ResponseType)messageDialog.Run ();
+			messageDialog.Destroy ();
+			if (response == ResponseType.Yes ) {
 				MySqlCommand deleteMySqlCommand = mySqlConnection.CreateCommand();
 				deleteMySqlCommand.CommandText = "delete from articulo where id=" + id;
 				deleteMySqlCommand.ExecuteNonQuery();
 			}
-			md.Destroy();		
 		};
-			
 		
-		treeView.Selection.Changed += delegate { //Activa el boton cuando alguna fila esta seleccionada
-			bool hasSelectedRows = treeView.Selection.CountSelectedRows() >0;
+		treeView.Selection.Changed += delegate {
+			bool hasSelectedRows = treeView.Selection.CountSelectedRows() > 0;
 			editAction.Sensitive = hasSelectedRows;
 			deleteAction.Sensitive = hasSelectedRows;
 		};
 		
-
+		//treeView.Selection.CountSelectedRows()
+//		treeView.Selection.Changed += delegate {
+//			TreeIter treeIter;
+//			Console.WriteLine ("============");
+//			if (treeView.Selection.GetSelected (out treeIter)) {
+//				Console.WriteLine ("listStore.GetPath(treeIter)=" + listStore.GetPath(treeIter) );
+//				Console.WriteLine ("listStore.GetValue(treeIter, 0)=" + listStore.GetValue(treeIter, 0));
+//				Console.WriteLine ("listStore.GetValue(treeIter, 1)=" + listStore.GetValue(treeIter, 1));
+//			} else
+//				Console.WriteLine ("Ninguno seleccionado");
+//		};
 	}
 	
 	protected void OnDeleteEvent (object sender, DeleteEventArgs a)
@@ -90,4 +94,3 @@ public partial class MainWindow: Gtk.Window
 		mySqlConnection.Close ();
 	}
 }
-

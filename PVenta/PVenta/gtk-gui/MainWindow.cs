@@ -4,7 +4,9 @@
 public partial class MainWindow
 {
 	private global::Gtk.UIManager UIManager;
+	private global::Gtk.Action newAction;
 	private global::Gtk.VBox vbox1;
+	private global::Gtk.Button mainButton;
 	private global::Gtk.Notebook notebook;
 	
 	protected virtual void Build ()
@@ -13,6 +15,8 @@ public partial class MainWindow
 		// Widget MainWindow
 		this.UIManager = new global::Gtk.UIManager ();
 		global::Gtk.ActionGroup w1 = new global::Gtk.ActionGroup ("Default");
+		this.newAction = new global::Gtk.Action ("newAction", null, null, "gtk-new");
+		w1.Add (this.newAction, null);
 		this.UIManager.InsertActionGroup (w1, 0);
 		this.AddAccelGroup (this.UIManager.AccelGroup);
 		this.Name = "MainWindow";
@@ -23,18 +27,29 @@ public partial class MainWindow
 		this.vbox1.Name = "vbox1";
 		this.vbox1.Spacing = 6;
 		// Container child vbox1.Gtk.Box+BoxChild
+		this.mainButton = new global::Gtk.Button ();
+		this.mainButton.CanFocus = true;
+		this.mainButton.Name = "mainButton";
+		this.mainButton.UseUnderline = true;
+		this.mainButton.Label = global::Mono.Unix.Catalog.GetString ("GtkButton");
+		this.vbox1.Add (this.mainButton);
+		global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.mainButton]));
+		w2.Position = 0;
+		w2.Expand = false;
+		w2.Fill = false;
+		// Container child vbox1.Gtk.Box+BoxChild
 		this.notebook = new global::Gtk.Notebook ();
 		this.notebook.CanFocus = true;
 		this.notebook.Name = "notebook";
 		this.notebook.CurrentPage = -1;
 		this.vbox1.Add (this.notebook);
-		global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.notebook]));
-		w2.Position = 2;
+		global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.notebook]));
+		w3.Position = 2;
 		this.Add (this.vbox1);
 		if ((this.Child != null)) {
 			this.Child.ShowAll ();
 		}
-		this.DefaultWidth = 439;
+		this.DefaultWidth = 400;
 		this.DefaultHeight = 300;
 		this.Show ();
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);

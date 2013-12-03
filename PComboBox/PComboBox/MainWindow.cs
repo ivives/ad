@@ -4,7 +4,6 @@ using System;
 using System.Data;
 using Serpis.Ad;
 
-
 public partial class MainWindow: Gtk.Window
 {	
 	public MainWindow (): base (Gtk.WindowType.Toplevel)
@@ -12,12 +11,11 @@ public partial class MainWindow: Gtk.Window
 		Build ();
 		
 		IDbConnection dbConnection = new MySqlConnection(
-			"Server = localhost;" +
-			"Database = dbprueba;" +
-			"User Id = root; " +
-			"Password = sistemas");
-		
-		dbConnection.Open();
+			"Server=localhost;" +
+			"Database=dbprueba;" +
+			"User Id=root;" +
+			"Password=sistemas");
+		dbConnection.Open ();
 		
 		ComboBoxHelper comboBoxHelper = new ComboBoxHelper(
 			comboBox,
@@ -26,11 +24,10 @@ public partial class MainWindow: Gtk.Window
 			"nombre",
 			"categoria",
 			2);
-	
-		comboBox.Changed += delegate{
+		
+		comboBox.Changed += delegate {
 			Console.WriteLine("comboBox.Changed id = {0}", comboBoxHelper.Id);
 		};
-		
 	}
 	
 	protected void OnDeleteEvent (object sender, DeleteEventArgs a)

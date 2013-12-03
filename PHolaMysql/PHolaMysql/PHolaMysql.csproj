@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>10.0.0</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{1C3682D9-8E8A-44DA-A961-A27BD0EA65DC}</ProjectGuid>
+    <ProjectGuid>{83AC6D97-CF7E-4A00-A239-4C0B494CA6C0}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>PHolaMysql</RootNamespace>
     <AssemblyName>PHolaMysql</AssemblyName>
