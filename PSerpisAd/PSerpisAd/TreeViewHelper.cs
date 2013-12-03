@@ -32,6 +32,25 @@ namespace Serpis.Ad
 			get {return listStore;}
 		}
 		
+		public void Refresh(){
+			//TODO implementar
+			throw new NotImplementedException();
+		
+		}
+		
+		/// <summary>
+		/// Devuelve el Id del registro seleccionado o string.Empty si no hay ninguno seleccionado
+		/// Nota: suponemos que está en la column de index 0.
+		/// </summary>
+				
+		public string Id {
+			get{
+				//TODO implementar
+				throw new NotImplementedException();
+			}
+		}
+		
+		
 		private string[] getColumnNames(IDataReader dataReader) {
 			List<string> columnNames = new List<string>();
 			for (int index = 0; index < dataReader.FieldCount; index++)
