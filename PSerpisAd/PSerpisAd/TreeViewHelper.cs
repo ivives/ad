@@ -9,21 +9,17 @@ namespace Serpis.Ad
 	{
 		private TreeView treeView;
 		private ListStore listStore;
-		public TreeViewHelper (TreeView treeView, IDbConnection dbConnection, string selectSql)
-		{
+		private IDbCommand dbCommand;
+		
+		public TreeViewHelper (TreeView treeView, IDbConnection dbConnection, string selectSql){
 			this.treeView = treeView;
-			IDbCommand dbCommand = dbConnection.CreateCommand ();
+			dbCommand = dbConnection.CreateCommand ();
 			dbCommand.CommandText = selectSql;
 			IDataReader dataReader = dbCommand.ExecuteReader();
 			string[] columnNames = getColumnNames(dataReader);
 			appendColumns(columnNames);
 			listStore = createListStore(dataReader.FieldCount);
-			while (dataReader.Read ()) {
-				List<string> values = new List<string>();
-				for (int index = 0; index < dataReader.FieldCount; index++)
-					values.Add ( dataReader.GetValue (index).ToString() );
-				listStore.AppendValues(values.ToArray());
-			}
+			fillListStore (dataReader);
 			dataReader.Close ();
 			treeView.Model = listStore;
 		}
@@ -32,21 +28,44 @@ namespace Serpis.Ad
 			get {return listStore;}
 		}
 		
-		public void Refresh(){
-			//TODO implementar
-			throw new NotImplementedException();
-		
+		//relleno el listStore
+		private void fillListStore(IDataReader dataReader){
+			while (dataReader.Read ()) {
+				List<string> values = new List<string>();
+				for (int index = 0; index < dataReader.FieldCount; index++)
+					values.Add ( dataReader.GetValue (index).ToString() );
+				listStore.AppendValues(values.ToArray());
+			}
 		}
+		
+		public void Refresh(){
+			listStore.Clear();
+
+			IDataReader dataReader = dbCommand.ExecuteReader();
+			fillListStore (dataReader);
+			
+			dataReader.Close ();
+								
+		}
+		
+		
+//		private int idColumnIndex = 0;
+//		public int IdColumnIndex {
+//			get {return idColumnIndex;}
+//			set {idColumnIndex = value;}
+//		}
 		
 		/// <summary>
 		/// Devuelve el Id del registro seleccionado o string.Empty si no hay ninguno seleccionado
-		/// Nota: suponemos que está en la column de index 0.
+		/// Nota: suponemos que esta en la column de index 0.
 		/// </summary>
 				
 		public string Id {
 			get{
-				//TODO implementar
-				throw new NotImplementedException();
+				TreeIter treeIter ;
+				if (treeView.Selection.GetSelected(out treeIter)){
+					return	listStore.GetValue(treeIter, 0).ToString(); //Id suponemos que la column 0
+				}return string.Empty;
 			}
 		}
 		

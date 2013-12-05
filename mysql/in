@@ -1,2 +1,0 @@
-select * from categoria 
-where id /* not */ in (select categoria from articulo where categoria is not null)

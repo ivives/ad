@@ -99,10 +99,6 @@ public partial class MainWindow: Gtk.Window
 		};
 		
 		
-		
-		
-		
-		
 	}
 	
 	private string[] getColumnNames(MySqlDataReader mySqlDataReader) {
