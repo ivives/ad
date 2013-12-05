@@ -12,9 +12,7 @@ namespace Serpis.Ad
 			App.Instance.DbConnection = new MySqlConnection(
 				"Server=localhost;Database=dbprueba;User Id=root; Password=sistemas");
 			
-			TreeViewHelper treeViewHelper = new TreeViewHelper(
-				treeView, 
-				App.Instance.DbConnection, 
+			TreeViewHelper treeViewHelper = new TreeViewHelper(treeView, App.Instance.DbConnection, 
 				"select id, nombre from categoria"
 				);
 					
@@ -22,10 +20,7 @@ namespace Serpis.Ad
 			Gtk.Action addAction = new Gtk.Action("addAction", null, null, Stock.Add);
 			
 			addAction.Activated += delegate {
-				IDbCommand dbCommand = App.Instance.DbConnection.CreateCommand();
-				dbCommand.CommandText = 
-					string.Format ("insert into categoria (nombre) values ('{0}')", DateTime.Now);
-				dbCommand.ExecuteNonQuery();
+				executeNonQuery (string.Format ("insert into categoria (nombre) values ('{0}')", DateTime.Now));
 			};
 			actionGroup.Add(addAction);
 					
@@ -33,10 +28,7 @@ namespace Serpis.Ad
 			Gtk.Action removeAction = new Gtk.Action("removeAction", null, null, Stock.Remove);
 			
 			removeAction.Activated += delegate {
-				IDbCommand dbCommand = App.Instance.DbConnection.CreateCommand();
-				dbCommand.CommandText = 
-					string.Format ("delete from categoria where id={0}", treeViewHelper.Id);
-				dbCommand.ExecuteNonQuery();
+				executeNonQuery (string.Format ("delete from categoria where id={0}", treeViewHelper.Id));
 			};
 			actionGroup.Add(removeAction);
 						
@@ -56,7 +48,15 @@ namespace Serpis.Ad
 			
 			removeAction.Sensitive = false;
 		}
-
+		
+		private static void executeNonQuery(string sql){
+			executeNonQuery (App.Instance.DbConnection, sql);			
+		}
+		private static void executeNonQuery(IDbConnection dbConnection, string sql){
+			IDbCommand dbCommand = dbConnection.CreateCommand();
+			dbCommand.CommandText = sql;
+			dbCommand.ExecuteNonQuery();
+		}
 	}
 }
 
