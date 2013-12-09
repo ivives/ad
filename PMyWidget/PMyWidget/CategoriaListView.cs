@@ -57,6 +57,10 @@ namespace Serpis.Ad
 			dbCommand.CommandText = sql;
 			dbCommand.ExecuteNonQuery();
 		}
+		
+		private static void addAction (ActionGroup actionGroup, Gtk.Action action){
+			
+		}
 	}
 }
 
