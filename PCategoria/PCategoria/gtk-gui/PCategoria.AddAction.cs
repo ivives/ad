@@ -10,7 +10,7 @@ namespace PCategoria
 		private global::Gtk.HBox hbox1;
 		private global::Gtk.Button cancelarButton;
 		private global::Gtk.Button aceptarButton;
-		
+
 		protected virtual void Build ()
 		{
 			global::Stetic.Gui.Initialize (this);
@@ -36,6 +36,7 @@ namespace PCategoria
 			this.entry.CanFocus = true;
 			this.entry.Name = "entry";
 			this.entry.IsEditable = true;
+			this.entry.InvisibleChar = '●';
 			this.vbox2.Add (this.entry);
 			global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.entry]));
 			w2.Position = 1;

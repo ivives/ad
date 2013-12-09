@@ -1,18 +1,11 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="PVenta/MainWindow.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="PVenta\ArticuloListView.cs">
     <Files>
-      <File FileName="PVenta/MainWindow.cs" Line="1" Column="1" />
+      <File FileName="PVenta\MainWindow.cs" Line="1" Column="1" />
+      <File FileName="PVenta\ArticuloListView.cs" Line="52" Column="4" />
+      <File FileName="PVenta\CategoriaListView.cs" Line="35" Column="33" />
     </Files>
-    <Pads>
-      <Pad Id="ProjectPad">
-        <State expanded="True">
-          <Node name="PVenta" expanded="True">
-            <Node name="MainWindow.cs" selected="True" />
-          </Node>
-        </State>
-      </Pad>
-    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />

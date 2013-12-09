@@ -1,19 +1,10 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="PCategoria/MainWindow.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="PCategoria\MainWindow.cs">
     <Files>
-      <File FileName="PCategoria/MainWindow.cs" Line="101" Column="1" />
-      <File FileName="PCategoria/AddAction.cs" Line="15" Column="4" />
+      <File FileName="PCategoria\MainWindow.cs" Line="3" Column="7" />
+      <File FileName="PCategoria\AddAction.cs" Line="1" Column="1" />
     </Files>
-    <Pads>
-      <Pad Id="ProjectPad">
-        <State expanded="True">
-          <Node name="PCategoria" expanded="True">
-            <Node name="MainWindow.cs" selected="True" />
-          </Node>
-        </State>
-      </Pad>
-    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />

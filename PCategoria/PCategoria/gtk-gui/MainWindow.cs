@@ -11,7 +11,7 @@ public partial class MainWindow
 	private global::Gtk.Toolbar toolbar;
 	private global::Gtk.ScrolledWindow GtkScrolledWindow;
 	private global::Gtk.TreeView treeView;
-	
+
 	protected virtual void Build ()
 	{
 		global::Stetic.Gui.Initialize (this);
@@ -37,7 +37,9 @@ public partial class MainWindow
 		this.vbox1.Name = "vbox1";
 		this.vbox1.Spacing = 6;
 		// Container child vbox1.Gtk.Box+BoxChild
-		this.UIManager.AddUiFromString ("<ui><toolbar name='toolbar'><toolitem name='refreshAction' action='refreshAction'/><separator/><toolitem name='addAction' action='addAction'/><separator/><toolitem name='deleteAction' action='deleteAction'/></toolbar></ui>");
+		this.UIManager.AddUiFromString ("<ui><toolbar name=\'toolbar\'><toolitem name=\'refreshAction\' action=\'refreshAction\'" +
+		"/><separator/><toolitem name=\'addAction\' action=\'addAction\'/><separator/><toolit" +
+		"em name=\'deleteAction\' action=\'deleteAction\'/></toolbar></ui>");
 		this.toolbar = ((global::Gtk.Toolbar)(this.UIManager.GetWidget ("/toolbar")));
 		this.toolbar.Name = "toolbar";
 		this.toolbar.ShowArrow = false;
