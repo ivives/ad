@@ -7,7 +7,7 @@ public partial class MainWindow
 	private global::Gtk.VBox vbox3;
 	private global::Gtk.Toolbar toolbar;
 	private global::Gtk.Notebook notebook;
-
+	
 	protected virtual void Build ()
 	{
 		global::Stetic.Gui.Initialize (this);
@@ -24,7 +24,7 @@ public partial class MainWindow
 		this.vbox3.Name = "vbox3";
 		this.vbox3.Spacing = 6;
 		// Container child vbox3.Gtk.Box+BoxChild
-		this.UIManager.AddUiFromString ("<ui><toolbar name=\'toolbar\'/></ui>");
+		this.UIManager.AddUiFromString ("<ui><toolbar name='toolbar'/></ui>");
 		this.toolbar = ((global::Gtk.Toolbar)(this.UIManager.GetWidget ("/toolbar")));
 		this.toolbar.Name = "toolbar";
 		this.toolbar.ShowArrow = false;
