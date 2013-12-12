@@ -14,12 +14,29 @@ namespace Serpis.Ad
 				"select id, nombre from categoria"
 			);
 			
+//			ActionFactory.NewRefreshAction (actionGroup, treeViewHelper);
+			
 			Gtk.Action refreshAction = new Gtk.Action("refreshAction", null, null, Stock.Refresh);
 			
 			refreshAction.Activated += delegate {
 				treeViewHelper.Refresh();
 			};
 			actionGroup.Add(refreshAction);
+			
+			
+			Gtk.Action editAction = new Gtk.Action ("editAction", null, null, Stock.Edit);
+
+			editAction.Activated += delegate {
+				CategoriaView categoriaView = new CategoriaView(treeViewHelper.Id);
+				categoriaView.Show();
+			};
+			actionGroup.Add (editAction);
+			
+			editAction.Sensitive = false;
+			treeView.Selection.Changed += delegate {
+				editAction.Sensitive = treeView.Selection.CountSelectedRows() > 0;
+			};
+			
 			
 //			App.Instance.DbConnection = new MySqlConnection(
 //				"Server=localhost;Database=dbprueba;User Id=root; Password=sistemas");
@@ -39,7 +56,7 @@ namespace Serpis.Ad
 //
 //
 //
-//			Gtk.Action editAction = new Gtk.Action ("editaction", null, null, Stock.Edit);
+//			Gtk.Action editAction = new Gtk.Action ("editAction", null, null, Stock.Edit);
 //
 //			editAction.Activated += delegate {
 //					
@@ -52,7 +69,6 @@ namespace Serpis.Ad
 //				removeAction.Sensitive = treeView.Selection.CountSelectedRows() > 0;
 //			};
 //
-//			removeAction.Sensitive = false;
 //		}
 //
 //		private static void executeNonQuery(string sql){
@@ -65,7 +81,23 @@ namespace Serpis.Ad
 //		}
 //
 
+		}
 	}
-}
-
+	
+//	public class ActionFactory {
+//		
+//		public static void NewRefreshAction(ActionGroup actionGroup, TreeViewHelper treeViewHelper){
+//			
+//			Gtk.Action refreshAction = new Gtk.Action("refreshAction", null, null, Stock.Refresh);
+//			
+//			refreshAction.Activated += delegate {
+//				treeViewHelper.Refresh();
+//			};
+//			actionGroup.Add(refreshAction);
+//				
+//			
+//		}
+//	}
+	
+	
 }
