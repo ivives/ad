@@ -1,10 +1,10 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="PGestion/MainWindow.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="PGestionMVC/CategoriaListView.cs">
     <Files>
-      <File FileName="PGestion/Main.cs" Line="23" Column="1" />
-      <File FileName="PGestion/MainWindow.cs" Line="13" Column="17" />
-      <File FileName="PGestion/CategoriaListView.cs" Line="6" Column="17" />
+      <File FileName="PGestionMVC/Main.cs" Line="3" Column="30" />
+      <File FileName="PGestionMVC/MainWindow.cs" Line="12" Column="71" />
+      <File FileName="PGestionMVC/CategoriaListView.cs" Line="21" Column="20" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

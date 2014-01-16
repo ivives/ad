@@ -11,17 +11,21 @@ public partial class MainWindow: Gtk.Window
 		UiManagerHelper uiManagerHelper = new UiManagerHelper(UIManager);
 		
 		CategoriaListView categoriaListView = new CategoriaListView();
-		
 		notebook.AppendPage (categoriaListView, new Label ("Categorias"));
-		
 		uiManagerHelper.SetActionGroup(categoriaListView.ActionGroup);
+		
+		
+		ArticuloListView articuloListView = new ArticuloListView();
+		notebook.AppendPage (articuloListView, new Label ("Articulos"));
+		uiManagerHelper.SetActionGroup(articuloListView.ActionGroup);
+		
+		
 		
 		notebook.SwitchPage += delegate {
 			IEntityListView entityListView = (IEntityListView) notebook.CurrentPageWidget;
 			uiManagerHelper.SetActionGroup(entityListView.ActionGroup);
+			
 		};
-		
-				
 		
 	}
 	
