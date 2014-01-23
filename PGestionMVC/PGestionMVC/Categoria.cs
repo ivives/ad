@@ -23,6 +23,7 @@ namespace Serpis.Ad
 		}
 		
 		
+		
 		public static Categoria Load (string id){
 				
 			IDbCommand selectDbCommand = App.Instance.DbConnection.CreateCommand();

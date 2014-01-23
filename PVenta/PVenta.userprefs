@@ -3,9 +3,9 @@
   <MonoDevelop.Ide.Workbench ActiveDocument="PVenta/CategoriaView.cs">
     <Files>
       <File FileName="PVenta/CategoriaListView.cs" Line="66" Column="3" />
-      <File FileName="PVenta/MainWindow.cs" Line="34" Column="2" />
-      <File FileName="PVenta/Main.cs" Line="10" Column="4" />
-      <File FileName="PVenta/CategoriaView.cs" Line="31" Column="33" />
+      <File FileName="PVenta/MainWindow.cs" Line="1" Column="1" />
+      <File FileName="PVenta/Main.cs" Line="1" Column="1" />
+      <File FileName="PVenta/CategoriaView.cs" Line="33" Column="29" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

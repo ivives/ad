@@ -25,6 +25,15 @@ namespace Serpis.Ad
 			editAction.Activated += delegate {
 				Categoria categoria = Categoria.Load (treeViewHelper.Id);
 //				Console.WriteLine("categoria.Id={0}, categoria.Nombre={1}", categoria.Id, categoria.Nombre);
+								
+				CategoriaView categoriaView = new CategoriaView();
+				
+				//CategoriaControler categoriaControler = 
+													new CategoriaControler(categoria, categoriaView);
+				
+				categoriaView.Show();
+				
+				
 			};
 			
 			actionGroup.Add (editAction);

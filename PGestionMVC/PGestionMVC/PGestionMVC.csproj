@@ -80,8 +80,8 @@
     <Compile Include="CategoriaListView.cs" />
     <Compile Include="Categoria.cs" />
     <Compile Include="CategoriaControler.cs" />
-    <Compile Include="CategoriaView.cs" />
     <Compile Include="gtk-gui\Serpis.Ad.CategoriaView.cs" />
+    <Compile Include="CategoriaView.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
