@@ -19,8 +19,7 @@ namespace Serpis.Ad
 			};
 					
 			actionGroup.Add (refreshAction);
-			
-			
+						
 			Gtk.Action editAction = new Gtk.Action("editAction", null, null , Stock.Edit);
 			editAction.Activated += delegate {
 				Categoria categoria = Categoria.Load (treeViewHelper.Id);
@@ -32,10 +31,7 @@ namespace Serpis.Ad
 													new CategoriaControler(categoria, categoriaView);
 				
 				categoriaView.Show();
-				
-				
 			};
-			
 			actionGroup.Add (editAction);
 		}
 	}

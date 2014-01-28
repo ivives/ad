@@ -19,19 +19,16 @@ namespace Serpis.Ad
 				Destroy ();
 			};
 		}
-		
-			
+					
 //		public Entry EntryNombre {
 //			get {return entryNombre;}
 //		}
-
 		
 		public string Nombre {
 			get {return entryNombre.Text;}
 			set {entryNombre.Text = value;}
 		}
 				
-		
 //		public Gtk.Action SaveAction {
 //			get {return saveAction;}
 //		}
