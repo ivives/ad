@@ -1,8 +1,10 @@
 using System;
 using System.Data;
+using System.Reflection;
 
 namespace Serpis.Ad
 {
+	[Table]
 	public class Categoria
 	{
 		
@@ -11,17 +13,29 @@ namespace Serpis.Ad
 		
 		private int id;
 		private string nombre;
-				
+		
+		
+		[Key]
 		public int Id {
 			get {return id;}
 			set {id = value;}
 		}
-
+		
+		[Field]
 		public string Nombre {
 			get {return nombre;}
 			set {nombre = value;}
 		}
 		
+		
+		public static object Load(Type type, string id){
+			
+			object obj = Activator.CreateInstance(type);
+			PropertyInfo propertyInfo = type.GetProperty("Nombre");
+			propertyInfo.SetValue(obj, "El nombre que yo quiera", null);
+			return obj;
+			
+		}
 		
 		
 		public static Categoria Load (string id){
@@ -48,6 +62,12 @@ namespace Serpis.Ad
 	
 		}
 	
+	}
+	
+	public class FieldAttribute : Attribute{
+	}
+	
+	public class KeyAttribute : Attribute{
 	}
 }
 

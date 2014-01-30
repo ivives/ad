@@ -1,13 +1,13 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="PGestionMVC/CategoriaControler.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="PGestionMVC/Categoria.cs">
     <Files>
-      <File FileName="PGestionMVC/Main.cs" Line="3" Column="30" />
+      <File FileName="PGestionMVC/Main.cs" Line="13" Column="43" />
       <File FileName="PGestionMVC/MainWindow.cs" Line="1" Column="1" />
-      <File FileName="PGestionMVC/CategoriaListView.cs" Line="36" Column="5" />
-      <File FileName="PGestionMVC/Categoria.cs" Line="25" Column="3" />
-      <File FileName="PGestionMVC/CategoriaControler.cs" Line="37" Column="1" />
-      <File FileName="PGestionMVC/CategoriaView.cs" Line="19" Column="5" />
+      <File FileName="PGestionMVC/CategoriaListView.cs" Line="1" Column="1" />
+      <File FileName="PGestionMVC/Categoria.cs" Line="20" Column="20" />
+      <File FileName="PGestionMVC/CategoriaControler.cs" Line="3" Column="1" />
+      <File FileName="PGestionMVC/CategoriaView.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -1,6 +1,7 @@
 using System;
 using System.Reflection;
 
+
 namespace Serpis.Ad
 {
 	public class CategoriaControler
@@ -36,7 +37,11 @@ namespace Serpis.Ad
 					object value = modelPropertyInfo.GetValue(model, null);
 					viewPropertyInfo.SetValue(view, value, null);
 				}
+				
+				
+				
 			}
+			
 			
 		}
 		
