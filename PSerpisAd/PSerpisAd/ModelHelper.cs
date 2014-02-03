@@ -54,6 +54,32 @@ namespace Serpis.Ad
 			return obj;
 		}
 		
+		public static object Save(Type type, string id){
+			
+			IDbCommand selectDbCommand = App.Instance.DbConnection.CreateCommand();
+			selectDbCommand.CommandText = GetSelect(type) + id;
+			IDataReader dataReader = selectDbCommand.ExecuteReader();
+			dataReader.Read(); //lee el primero
+			
+			
+			object obj = Activator.CreateInstance(type);
+			foreach (PropertyInfo propertyInfo in type.GetProperties()){
+				if(propertyInfo.IsDefined (typeof(KeyAttribute), true))
+					propertyInfo.SetValue(obj, id, null);
+				else if (propertyInfo.IsDefined (typeof(FieldAttribute), true))
+					propertyInfo.SetValue(obj, dataReader[propertyInfo.Name.ToLower()], null);
+				
+			}
+			
+			
+			dataReader.Close();
+//			Categoria categoria = new Categoria();
+//			categoria.Id = int.Parse(id);
+//			categoria.nombre = dataReader["nombre"].ToString();
+//			dataReader.Close();
+//			return categoria;
+			return obj;
+		}
 		
 	}
 }
