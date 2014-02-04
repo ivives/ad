@@ -27,22 +27,28 @@ namespace Serpis.Ad
 		}
 		
 		
+		private static string formatParameter(string field){
+		
+			return string.Format("{0}=@{0}", field);
+			
+		}
+		
 		public static string GetUpdate(Type type){
 		
-			string KeyName = null;
-			List<string> fieldNames = new List<string>();
+			string KeyParameter = null;
+			List<string> fieldParameters = new List<string>();
 			foreach (PropertyInfo propertyInfo in type.GetProperties()){
 			
 				if (propertyInfo.IsDefined(typeof(KeyAttribute), true))
-					KeyName = propertyInfo.Name.ToLower();
+					KeyParameter = formatParameter(propertyInfo.Name.ToLower());
 				else if (propertyInfo.IsDefined (typeof(FieldAttribute), true))
-					fieldNames.Add (propertyInfo.Name.ToLower());
+					fieldParameters.Add (formatParameter(propertyInfo.Name.ToLower()));
 			}
 			
 			string tableName = type.Name.ToLower();
 			
-			return string.Format("update {0} get {1} where {2}=",
-			                     string.Join(", ", tableName), fieldNames, KeyName);//comprobar
+			return string.Format("update {0} set {1}  where {2}=",
+			                     tableName, string.Join(", ", fieldParameters), KeyParameter);//comprobar
 		}
 		
 		
@@ -72,13 +78,22 @@ namespace Serpis.Ad
 		}
 		
 		
-		public static void Save(Type type, string id){
+		public static void Save(object obj){
 			
 			IDbCommand updateDbCommand = App.Instance.DbConnection.CreateCommand();
-			updateDbCommand.CommandText = GetUpdate(type) + id;
+			Type type = obj.GetType();
+			updateDbCommand.CommandText = GetUpdate(type);
 			
-			updateDbCommand.ExecuteNonQuery();
-			
+			foreach (PropertyInfo propertyInfo in type.GetProperties()){
+				if(propertyInfo.IsDefined (typeof(KeyAttribute), true)
+					|| propertyInfo.IsDefined (typeof(FieldAttribute), true)){
+					
+					object value = propertyInfo.GetValue(obj, null);
+					DbCommandUtil.AddParameter(updateDbCommand, propertyInfo.Name.ToLower(), value);
+				}
+				updateDbCommand.ExecuteNonQuery();
+				
+			}
 			
 		}
 		
@@ -87,7 +102,6 @@ namespace Serpis.Ad
 //			IDbCommand updateDbCommand = App.Instance.DbConnection.CreateCommand();
 //			updateDbCommand.CommandText = "update categoria set nombre=@nombre where id=" + categoria.Id;
 //			DbCommandUtil.AddParameter(updateDbCommand, "nombre", categoria.Nombre);
-//
 //			updateDbCommand.ExecuteNonQuery();
 //	
 //		}

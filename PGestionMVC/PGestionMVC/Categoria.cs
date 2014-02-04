@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace Serpis.Ad
 {
-	[Table]
+	//[Table]
 	public class Categoria
 	{
 		
@@ -61,6 +61,7 @@ namespace Serpis.Ad
 			updateDbCommand.ExecuteNonQuery();
 	
 		}
+			
 	
 	}
 	
