@@ -9,9 +9,9 @@
       <File FileName="PSerpisAd/App.cs" Line="1" Column="1" />
       <File FileName="PSerpisAd/DbCommandUtil.cs" Line="1" Column="1" />
       <File FileName="PSerpisAd/ComboBoxHelper.cs" Line="1" Column="1" />
-      <File FileName="PSerpisAd/ModelHelper.cs" Line="8" Column="66" />
-      <File FileName="PSerpisAd/FieldAttribute.cs" Line="11" Column="1" />
-      <File FileName="PSerpisAd/KeyAttribute.cs" Line="7" Column="3" />
+      <File FileName="PSerpisAd/ModelHelper.cs" Line="57" Column="28" />
+      <File FileName="PSerpisAd/FieldAttribute.cs" Line="1" Column="1" />
+      <File FileName="PSerpisAd/KeyAttribute.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
