@@ -13,9 +13,7 @@ namespace Serpis.Ad
 		public string Nombre {get;set;}
 		
 	}
-	
-	
-	
+		
 	internal class ModelHelperBar
 	{
 		[Key]

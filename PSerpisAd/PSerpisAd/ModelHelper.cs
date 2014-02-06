@@ -51,6 +51,26 @@ namespace Serpis.Ad
 			                     tableName, string.Join(", ", fieldParameters), KeyParameter);//comprobar
 		}
 		
+		public static string GetInsert(Type type, string values){
+			
+//				string keyName = null;
+			List<string> fieldNames = new List<string>();
+			foreach (PropertyInfo propertyInfo in type.GetProperties()){
+//				if(propertyInfo.IsDefined (typeof(KeyAttribute), true))
+//					keyName = propertyInfo.Name.ToLower();
+				//else 
+					if (propertyInfo.IsDefined (typeof(FieldAttribute), true))
+					fieldNames.Add (propertyInfo.Name.ToLower());
+				
+			}
+			
+			string tableName = type.Name.ToLower();
+			
+			return string.Format("insert into {0} ({1}) values ({2})", 
+			                     tableName, string.Join(", ", fieldNames),  values );
+		}
+		
+		
 		
 		public static object Load(Type type, string id){
 			
@@ -98,14 +118,12 @@ namespace Serpis.Ad
 		}
 		
 		
-//		public static void Save(Categoria categoria){
-//			IDbCommand updateDbCommand = App.Instance.DbConnection.CreateCommand();
-//			updateDbCommand.CommandText = "update categoria set nombre=@nombre where id=" + categoria.Id;
-//			DbCommandUtil.AddParameter(updateDbCommand, "nombre", categoria.Nombre);
-//			updateDbCommand.ExecuteNonQuery();
-//	
-//		}
-		
+		public static void Insert(object obj){
+			
+			
+			
+		}
+	
 		
 		
 	}
