@@ -67,7 +67,7 @@ namespace Serpis.Ad
 			string tableName = type.Name.ToLower();
 			
 			return string.Format("insert into {0} ({1}) values ({2})", 
-			                     tableName, string.Join(", ", fieldNames),  values );
+			                     tableName, string.Join(", ", fieldNames),  string.Join(", ", values) );
 		}
 		
 		
@@ -119,8 +119,21 @@ namespace Serpis.Ad
 		
 		
 		public static void Insert(object obj){
+			string values = "";
+			IDbCommand insertDbCommand = App.Instance.DbConnection.CreateCommand();
+			Type type = obj.GetType();
 			
+			insertDbCommand.CommandText = GetInsert(type, values);
 			
+			foreach (PropertyInfo propertyInfo in type.GetProperties()){
+				if(propertyInfo.IsDefined (typeof(KeyAttribute),true)
+				   || propertyInfo.IsDefined (typeof(FieldAttribute), true)){
+					
+					object value = propertyInfo.GetValue(obj, null);
+					DbCommandUtil.AddParameter(insertDbCommand, propertyInfo.Name.ToLower(), value);
+				}
+				insertDbCommand.ExecuteNonQuery();
+			}
 			
 		}
 	

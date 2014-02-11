@@ -8,7 +8,7 @@ namespace Serpis.Ad
 	{
 		
 		private Type type;
-		public ModelInfo (Type type){
+		internal ModelInfo (Type type){
 			this.type = type;
 			tableName = type.Name.ToLower();
 			
@@ -24,8 +24,23 @@ namespace Serpis.Ad
 					fieldPropertyInfos.Add(propertyInfo);
 					fieldNames.Add(propertyInfo.Name.ToLower());
 				}
+			
+			setUpdateText();
+			
 		}
 		
+		private void setUpdateText(){
+			
+			List<string> fieldParameters = new List<string>();
+			foreach (string fieldName in fieldNames)
+				fieldParameters.Add(fieldName + "=@" + fieldName);
+			
+			updateText = string.Format( "update {0} set {1} where {2}", 
+			                           tableName, 
+			                           string.Join(", ", fieldParameters), 
+			                           keyName +  "=@" + keyName);
+		}
+			
 		
 		private string tableName;
 		public string TableName {get {return tableName;}}
@@ -41,6 +56,13 @@ namespace Serpis.Ad
 		
 		private List<string> fieldNames;
 		public string[] FieldNames {get {return fieldNames.ToArray();}}
+		
+		private string updateText;
+		public string UpdateText {get {return updateText;}}
+		
+		
+		public string InsertText {get {return null;}}
+		
 		
 	}
 }
