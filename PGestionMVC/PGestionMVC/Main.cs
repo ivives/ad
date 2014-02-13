@@ -9,6 +9,10 @@ namespace Serpis.Ad
 		public static void Main (string[] args)
 		{
 			
+			int i = default(int);
+//			int i = (int)Convert.ChangeType("123", typeof(int));
+			Console.WriteLine ("i={0}", i);
+			
 			Categoria categoria = (Categoria) Categoria.Load (typeof(Categoria), "");
 			Console.WriteLine ("categoria.Nombre");
 			return;

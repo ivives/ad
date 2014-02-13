@@ -81,11 +81,18 @@ namespace Serpis.Ad
 			
 			object obj = Activator.CreateInstance(type);
 			foreach (PropertyInfo propertyInfo in type.GetProperties()){
-				if(propertyInfo.IsDefined (typeof(KeyAttribute), true))
-					propertyInfo.SetValue(obj, id, null);//falta convertir al tipo
-				else if (propertyInfo.IsDefined (typeof(FieldAttribute), true))
-					propertyInfo.SetValue(obj, dataReader[propertyInfo.Name.ToLower()], null);
 				
+				if(propertyInfo.IsDefined (typeof(KeyAttribute), true)){
+					
+					object value = convert (id, propertyInfo.PropertyType);
+					
+					propertyInfo.SetValue(obj, value, null);
+				}else if (propertyInfo.IsDefined (typeof(FieldAttribute), true)){
+					
+					object value = convert (dataReader[propertyInfo.Name.ToLower()], propertyInfo.PropertyType);
+					
+					propertyInfo.SetValue(obj, value, null);
+				}
 			}
 			
 			dataReader.Close();
@@ -95,6 +102,11 @@ namespace Serpis.Ad
 //			dataReader.Close();
 //			return categoria;
 			return obj;
+		}
+		
+		private static object convert(object value, Type type){
+				
+			return Convert.ChangeType (value, type);
 		}
 		
 		
