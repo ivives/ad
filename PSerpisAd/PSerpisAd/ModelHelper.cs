@@ -51,17 +51,15 @@ namespace Serpis.Ad
 			                     tableName, string.Join(", ", fieldParameters), KeyParameter);//comprobar
 		}
 		
-		public static string GetInsert(Type type, string values){
+		public static string GetInsert(Type type){
 			
-//				string keyName = null;
+			ModelInfo modelInfo = ModelInfoStore.Get (type);
 			List<string> fieldNames = new List<string>();
-			foreach (PropertyInfo propertyInfo in type.GetProperties()){
-//				if(propertyInfo.IsDefined (typeof(KeyAttribute), true))
-//					keyName = propertyInfo.Name.ToLower();
-				//else 
-					if (propertyInfo.IsDefined (typeof(FieldAttribute), true))
-					fieldNames.Add (propertyInfo.Name.ToLower());
-				
+			List<string> values = new List<string>();
+			foreach (PropertyInfo propertyInfo in modelInfo.FieldPropertyInfos){
+				fieldNames.Add (propertyInfo.Name.ToLower());
+				values.Add ("@" + propertyInfo.Name.ToLower());
+ 								
 			}
 			
 			string tableName = type.Name.ToLower();
@@ -131,22 +129,22 @@ namespace Serpis.Ad
 		
 		
 		public static void Insert(object obj){
-			string values = "";
+			
+			ModelInfo modelInfo = ModelInfoStore.Get (obj.GetType());
+			
 			IDbCommand insertDbCommand = App.Instance.DbConnection.CreateCommand();
 			Type type = obj.GetType();
 			
-			insertDbCommand.CommandText = GetInsert(type, values);
+			insertDbCommand.CommandText = modelInfo.InsertText;
 			
-			foreach (PropertyInfo propertyInfo in type.GetProperties()){
-				if(propertyInfo.IsDefined (typeof(KeyAttribute),true)
-				   || propertyInfo.IsDefined (typeof(FieldAttribute), true)){
-					
-					object value = propertyInfo.GetValue(obj, null);
-					DbCommandUtil.AddParameter(insertDbCommand, propertyInfo.Name.ToLower(), value);
-				}
-				insertDbCommand.ExecuteNonQuery();
+			foreach (PropertyInfo propertyInfo in modelInfo.FieldPropertyInfos){
+									
+					object valueType = propertyInfo.GetValue(obj, null);
+					DbCommandUtil.AddParameter(insertDbCommand, propertyInfo.Name.ToLower(), valueType);
+				
+				
 			}
-			
+			insertDbCommand.ExecuteNonQuery();
 		}
 	
 		

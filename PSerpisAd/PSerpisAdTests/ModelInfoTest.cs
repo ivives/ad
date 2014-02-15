@@ -96,6 +96,9 @@ namespace Serpis.Ad
 		public void InsertText(){
 			ModelInfo modelInfo = ModelInfoStore.Get(typeof(ModelInfoFoo));
 			Assert.AreEqual("insert into modelinfofoo values nombre=@nombre", modelInfo.InsertText);
+			
+			modelInfo = ModelInfoStore.Get(typeof(ModelInfoBar));
+			Assert.AreEqual("insert into modelinfobar values nombre=@nombre, precio=@precio", modelInfo.InsertText);
 		}
 		
 	}
