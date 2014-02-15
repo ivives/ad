@@ -37,20 +37,39 @@ namespace Serpis.Ad
 		{
 			string selectText;
 			string expected;
-			
-			
+						
 			selectText = ModelHelper.GetSelect(typeof(ModelHelperFoo));
 			expected = "select nombre from modelhelperfoo where id=";
 			
 			Assert.AreEqual (expected, selectText);
-			
-			
+						
 			selectText = ModelHelper.GetSelect(typeof(ModelHelperBar));
 			expected = "select nombre, precio from modelhelperbar where id=";
 			
 			Assert.AreEqual (expected, selectText);
 			
 		}
+		
+		[Test ()]
+		public void GetInsert(){
+
+			string selectText;
+			string expected;
+
+			selectText = ModelHelper.GetInsert(typeof(ModelHelperFoo));
+			expected = "insert into modelhelperfoo (nombre) values ( @nombre ) ";
+			
+			Assert.AreEqual (expected, selectText);
+
+			selectText = ModelHelper.GetInsert(typeof(ModelHelperBar));
+			expected = "insert into modelhelperbar (nombre, precio) values ( @nombre, @precio ) ";
+
+			Assert.AreEqual (expected, selectText);
+
+		}
+		
+		
+
 	}
 }
 

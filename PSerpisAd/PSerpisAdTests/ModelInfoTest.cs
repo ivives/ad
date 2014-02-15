@@ -63,8 +63,7 @@ namespace Serpis.Ad
 			fieldPropertyInfos = modelInfo.FieldPropertyInfos;
 			Assert.AreEqual(2, fieldPropertyInfos.Length);
 		}
-		
-		
+				
 		[Test]
 		public void FieldNames(){
 			ModelInfo modelInfo = ModelInfoStore.Get(typeof(ModelInfoFoo));
@@ -78,8 +77,7 @@ namespace Serpis.Ad
 			Assert.Contains("nombre", fieldNames);
 			Assert.Contains("precio", fieldNames);
 		}
-		
-		
+				
 		[Test]
 		public void UpdateText(){
 			ModelInfo modelInfo = ModelInfoStore.Get(typeof(ModelInfoFoo));
@@ -87,18 +85,25 @@ namespace Serpis.Ad
 			
 			modelInfo = ModelInfoStore.Get(typeof(ModelInfoBar));
 			Assert.AreEqual("update modelinfobar set nombre=@nombre, precio=@precio where id=@id", modelInfo.UpdateText);
-			
-			
+					
 		}
-		
-		
+				
 		[Test]
 		public void InsertText(){
 			ModelInfo modelInfo = ModelInfoStore.Get(typeof(ModelInfoFoo));
-			Assert.AreEqual("insert into modelinfofoo values nombre=@nombre", modelInfo.InsertText);
+			Assert.AreEqual("insert into modelinfofoo nombre values @nombre", modelInfo.InsertText);
 			
 			modelInfo = ModelInfoStore.Get(typeof(ModelInfoBar));
-			Assert.AreEqual("insert into modelinfobar values nombre=@nombre, precio=@precio", modelInfo.InsertText);
+			Assert.AreEqual("insert into modelinfobar (nombre, precio) values (@nombre, @precio)", modelInfo.InsertText);
+		}
+		
+		[Test]
+		public void SelectText(){
+			ModelInfo modelInfo = ModelInfoStore.Get(typeof(ModelInfoFoo));
+			Assert.AreEqual("select nombre from modelinfofoo where id=", modelInfo.SelectText);
+			
+			modelInfo = ModelInfoStore.Get(typeof(ModelInfoBar));
+			Assert.AreEqual("select nombre, precio from modelinfobar where id=", modelInfo.SelectText);
 		}
 		
 	}

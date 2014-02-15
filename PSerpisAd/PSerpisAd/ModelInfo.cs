@@ -29,6 +29,8 @@ namespace Serpis.Ad
 			
 			setInsertText();
 			
+			setSelectText();
+			
 		}
 		
 		private void setUpdateText(){
@@ -55,7 +57,19 @@ namespace Serpis.Ad
 			                           string.Join(", ", fieldParameters));
 		}
 		
+		private void setSelectText(){
+			
+			List<string> fieldParameters = new List<string>();
+			foreach (string fieldName in fieldNames)
+				fieldParameters.Add(fieldName);
+			
+			selectText = string.Format("select {0} from {1} where {2}=",
+			                           string.Join(", ", fieldNames), 
+			                           tableName, 
+			                           keyName +  "=@" + keyName);
+		}
 		
+				
 		private string tableName;
 		public string TableName {get {return tableName;}}
 				
@@ -78,6 +92,9 @@ namespace Serpis.Ad
 		public string InsertText {get {return insertText;}}
 		
 		// insert into articulo (nombre, precio, categoria) values (@nombre, @precio, @categoria)
+		
+		private string selectText;
+		public string SelectText {get {return selectText;}}
 	}
 }
 
