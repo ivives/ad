@@ -68,7 +68,22 @@ namespace Serpis.Ad
 
 		}
 		
-		
+		[Test ()]
+		public void GetUpdate(){
+			
+			string selectText;
+			string expected;
+			
+			selectText = ModelHelper.GetUpdate(typeof(ModelHelperFoo));
+			expected = "update modelhelperfoo set nombre=@nombre where id=@id";
+			
+			Assert.AreEqual (expected, selectText);
+			
+			selectText = ModelHelper.GetUpdate(typeof(ModelHelperBar));
+			expected = "update modelhelperbar set nombre=@nombre, precio=@precio where id=@id";
+			
+			Assert.AreEqual (expected, selectText);
+		}
 
 	}
 }
