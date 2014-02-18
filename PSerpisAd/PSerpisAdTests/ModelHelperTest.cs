@@ -57,7 +57,7 @@ namespace Serpis.Ad
 			string expected;
 
 			selectText = ModelHelper.GetInsert(typeof(ModelHelperFoo));
-			expected = "insert into modelhelperfoo (nombre) values ( @nombre ) ";
+			expected = "insert into modelhelperfoo (nombre) values (@nombre) ";
 			
 			Assert.AreEqual (expected, selectText);
 

@@ -41,7 +41,7 @@ namespace Serpis.Ad
 			
 			updateText = string.Format( "update {0} set {1} where {2}", 
 			                           tableName, 
-			                           string.Join(", ", fieldParameters), 
+			                           string.Join(", ", fieldNames), 
 			                           keyName +  "=@" + keyName);
 		}
 		

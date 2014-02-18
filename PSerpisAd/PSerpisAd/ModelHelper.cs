@@ -22,7 +22,7 @@ namespace Serpis.Ad
 			string tableName = type.Name.ToLower();
 			
 			return string.Format("select {0} from {1} where {2}=", 
-			                     string.Join(", ", fieldNames), tableName, keyName );
+			                     String.Join(", ", fieldNames), tableName, keyName );
 		
 		}
 		
@@ -37,35 +37,32 @@ namespace Serpis.Ad
 		
 			string KeyParameter = null;
 			List<string> fieldParameters = new List<string>();
-			foreach (PropertyInfo propertyInfo in type.GetProperties()){
-			
-				if (propertyInfo.IsDefined(typeof(KeyAttribute), true))
-					KeyParameter = formatParameter(propertyInfo.Name.ToLower());
-				else if (propertyInfo.IsDefined (typeof(FieldAttribute), true))
-					fieldParameters.Add (formatParameter(propertyInfo.Name.ToLower()));
-			}
+			ModelInfo modelInfo = ModelInfoStore.Get (type);
+			KeyParameter = formatParameter (modelInfo.KeyPropertyInfo.Name.ToLower ());
+			foreach(PropertyInfo propertyInfo in modelInfo.FieldPropertyInfos) 
+				fieldParameters.Add(formatParameter (propertyInfo.Name.ToLower ()));
 			
 			string tableName = type.Name.ToLower();
 			
 			return string.Format("update {0} set {1}  where {2}=",
-			                     tableName, string.Join(", ", fieldParameters), KeyParameter);//comprobar
+			                     tableName, String.Join(", ", fieldParameters), KeyParameter);//comprobar
 		}
 		
 		public static string GetInsert(Type type){
 			
 			ModelInfo modelInfo = ModelInfoStore.Get (type);
-			List<string> fieldNames = new List<string>();
-			List<string> values = new List<string>();
+			List<string> fieldParameters = new List<string>();
+			List<string> fields = new List<string>();
 			foreach (PropertyInfo propertyInfo in modelInfo.FieldPropertyInfos){
-				fieldNames.Add (propertyInfo.Name.ToLower());
-				values.Add ("@" + propertyInfo.Name.ToLower());
+				fieldParameters.Add ("@" + propertyInfo.Name.ToLower());
+				fields.Add (propertyInfo.Name.ToLower());
  								
 			}
 			
 			string tableName = type.Name.ToLower();
 			
 			return string.Format("insert into {0} ({1}) values ({2})", 
-			                     tableName, string.Join(", ", fieldNames),  string.Join(", ", values) );
+			                     tableName, String.Join(", ", fields),  String.Join(", ", fieldParameters) );
 		}
 		
 		

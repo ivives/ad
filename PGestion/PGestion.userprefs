@@ -1,6 +1,6 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="PGestion/ArticuloListView.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="PGestion/MainWindow.cs">
     <Files>
       <File FileName="PGestion/Main.cs" Line="5" Column="20" />
       <File FileName="PGestion/MainWindow.cs" Line="16" Column="3" />
