@@ -1,26 +1,19 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="PSerpisAdTests/ModelHelperTest.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="PSerpisAdTests/ModelInfoTest.cs">
     <Files>
-      <File FileName="PSerpisAd/IEntityListView.cs" Line="1" Column="1" />
-      <File FileName="PSerpisAd/UiManagerHelper.cs" Line="1" Column="1" />
-      <File FileName="PSerpisAd/EntityListView.cs" Line="1" Column="1" />
-      <File FileName="PSerpisAd/TreeViewHelper.cs" Line="1" Column="1" />
-      <File FileName="PSerpisAd/App.cs" Line="1" Column="1" />
-      <File FileName="PSerpisAd/DbCommandUtil.cs" Line="1" Column="1" />
-      <File FileName="PSerpisAd/ComboBoxHelper.cs" Line="1" Column="1" />
-      <File FileName="PSerpisAd/ModelHelper.cs" Line="61" Column="46" />
-      <File FileName="PSerpisAdTests/ModelHelperTest.cs" Line="75" Column="20" />
-      <File FileName="PSerpisAd/ModelInfo.cs" Line="1" Column="1" />
-      <File FileName="PSerpisAdTests/ModelInfoTest.cs" Line="1" Column="1" />
-      <File FileName="PSerpisAd/ModelInfoStore.cs" Line="1" Column="1" />
+      <File FileName="PSerpisAd/ModelInfo.cs" Line="108" Column="1" />
+      <File FileName="PSerpisAdTests/ModelInfoTest.cs" Line="95" Column="4" />
+      <File FileName="PSerpisAd/ModelHelper.cs" Line="65" Column="62" />
+      <File FileName="PSerpisAd/ModelInfoStore.cs" Line="32" Column="1" />
+      <File FileName="PSerpisAdTests/ModelHelperTest.cs" Line="52" Column="50" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="PSerpisAd" expanded="True" />
           <Node name="PSerpisAdTests" expanded="True">
-            <Node name="ModelHelperTest.cs" selected="True" />
+            <Node name="ModelInfoTest.cs" selected="True" />
           </Node>
         </State>
       </Pad>
@@ -34,10 +27,8 @@
         <State expanded="True">
           <Node name="PSerpisAdTests" expanded="True">
             <Node name="Serpis" expanded="True">
-              <Node name="Ad" expanded="True">
-                <Node name="ModelHelperTest" expanded="True">
-                  <Node name="GetUpdate" selected="True" />
-                </Node>
+              <Node name="Ad" expanded="True" selected="True">
+                <Node name="ModelHelperTest" expanded="True" />
                 <Node name="ModelInfoTest" expanded="True" />
               </Node>
             </Node>

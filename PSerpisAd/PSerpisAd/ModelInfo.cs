@@ -1,100 +1,132 @@
 using System;
-using System.Collections.Generic;
 using System.Reflection;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Serpis.Ad
 {
+
+
 	public class ModelInfo
 	{
-		
+		public string TableName { 
+			get {return tableName;} 
+		}
 		private Type type;
-		internal ModelInfo (Type type){
+		internal ModelInfo (Type type)
+		{
 			this.type = type;
-			tableName = type.Name.ToLower();
+			tableName = type.Name.ToLower ();
+			fieldPropertyInfos=new List<PropertyInfo>();
+			fieldNames=new List<string>();
+			fieldNamesUpdate=new List<string>();
+			fieldNamesSelect=new List<string>();
+			fieldNamesInsert=new List<string>();
 			
-			fieldPropertyInfos = new List<PropertyInfo>();
-			fieldNames = new List<string>();
-			
-			foreach (PropertyInfo propertyInfo in type.GetProperties())
-				if(propertyInfo.IsDefined (typeof(KeyAttribute), true)){
+
+			foreach (PropertyInfo propertyInfo in type.GetProperties()) {
+				if (propertyInfo.IsDefined (typeof(KeyAttribute), true)) {
+					Console.WriteLine ( propertyInfo.Name);
 					keyPropertyInfo = propertyInfo;
-					keyName = propertyInfo.Name.ToLower();
-				
-				}else if (propertyInfo.IsDefined(typeof(FieldAttribute), true)){
-					fieldPropertyInfos.Add(propertyInfo);
-					fieldNames.Add(propertyInfo.Name.ToLower());
+					keyName = propertyInfo.Name.ToLower ();
+				} else if (propertyInfo.IsDefined (typeof(FieldAttribute), true)) {
+					fieldPropertyInfos.Add (propertyInfo);
+					fieldNames.Add (propertyInfo.Name.ToLower());
+					fieldNamesUpdate.Add (formatparameter(propertyInfo.Name.ToLower()));
+					fieldNamesInsert.Add (formatparameterSelect(propertyInfo.Name.ToLower()));
+					fieldNamesSelect.Add (propertyInfo.Name.ToLower());
 				}
-			
-			setUpdateText();
-			
-			setInsertText();
-			
-			setSelectText();
-			
+			}
+			insert = String.Format("insert into {0} ({1}) values ( {2} ) ",
+			                       tableName,
+			                       String.Join(", ",fieldNames),
+			                       String.Join(", ",fieldNamesInsert));
+			select = String.Format ("select {0} from {1} where {2}",
+			                        String.Join(", ",fieldNamesSelect),
+			                        tableName,
+			                        formatparameter (keyName));
+			update = String.Format("update {0} set {1} where {2}",
+			                       tableName,
+			                       String.Join(", ",fieldNamesUpdate),
+			                       formatparameter (keyName));
 		}
-		
-		private void setUpdateText(){
-			
-			List<string> fieldParameters = new List<string>();
-			foreach (string fieldName in fieldNames)
-				fieldParameters.Add(fieldName + "=@" + fieldName);
-			
-			updateText = string.Format( "update {0} set {1} where {2}", 
-			                           tableName, 
-			                           string.Join(", ", fieldNames), 
-			                           keyName +  "=@" + keyName);
+
+		internal ModelInfo(Type type, string id, string[]fields){
+
+			this.type = type;
+			tableName = type.Name.ToLower ();
+			fieldPropertyInfos=new List<PropertyInfo>();
+			fieldNames=new List<string>();
+			fieldNamesUpdate=new List<string>();
+			fieldNamesSelect=new List<string>();
+			fieldNamesInsert=new List<string>();
+
+			foreach (PropertyInfo propertyInfo in type.GetProperties()) {
+				if (propertyInfo.Name.ToLower().Equals(id)) {
+					Console.WriteLine ( propertyInfo.Name);
+					keyPropertyInfo = propertyInfo;
+					keyName = propertyInfo.Name.ToLower ();
+				} 
+				else
+					for (int i = 0; i < fields.Length; i++) {
+						if (propertyInfo.Name.ToLower().Equals (fields[i])) {
+							fieldPropertyInfos.Add (propertyInfo);
+							fieldNames.Add (propertyInfo.Name.ToLower());
+							fieldNamesUpdate.Add (formatparameter(propertyInfo.Name.ToLower()));
+							fieldNamesInsert.Add (formatparameterSelect(propertyInfo.Name.ToLower()));
+							fieldNamesSelect.Add (propertyInfo.Name.ToLower());
+						}
+					}
+			}
+
+			insert = String.Format("insert into {0} ({1}) values ( {2} ) ",
+			                     tableName,
+			                     String.Join(", ",fieldNames),
+			                     String.Join(", ",fieldNamesInsert));
+			select = String.Format ("select {0} from {1} where {2}",
+			                        string.Join(", ",fieldNamesSelect),
+			                        tableName,
+			                        formatparameter (keyName));
+			update = String.Format("update {0} set {1} where {2}",
+			                     tableName,
+			                     String.Join(", ",fieldNamesUpdate),
+			                     formatparameter (keyName));
+
 		}
-		
-		private void setInsertText(){
-			
-			List<string> fieldParameters = new List<string>();
-			foreach (string fieldName in fieldNames)
-				fieldParameters.Add(fieldName);
-			
-			insertText = string.Format("insert into {0} ({1}) values ({2})",
-			                           tableName,
-			                           string.Join(", ", fieldNames),
-			                           string.Join(", ", fieldParameters));
-		}
-		
-		private void setSelectText(){
-			
-			List<string> fieldParameters = new List<string>();
-			foreach (string fieldName in fieldNames)
-				fieldParameters.Add(fieldName);
-			
-			selectText = string.Format("select {0} from {1} where {2}=",
-			                           string.Join(", ", fieldNames), 
-			                           tableName, 
-			                           keyName +  "=@" + keyName);
-		}
-		
-				
+
 		private string tableName;
-		public string TableName {get {return tableName;}}
-				
-		private PropertyInfo keyPropertyInfo;
-		public PropertyInfo KeyPropertyInfo {get {return keyPropertyInfo;}}
-		
-		private string keyName;
-		public string KeyName {get {return keyName;}}
-		
 		private List<PropertyInfo> fieldPropertyInfos;
-		public PropertyInfo[] FieldPropertyInfos {get {return fieldPropertyInfos.ToArray();}}
-		
 		private List<string> fieldNames;
+		
+		private List<string> fieldNamesUpdate;
+		private List<string> fieldNamesSelect;
+		private List<string> fieldNamesInsert;
+		private string keyName;
+		private PropertyInfo keyPropertyInfo;
+		public PropertyInfo KeyPropertyInfo { get { return keyPropertyInfo; } }
+		public string KeyName { get {return keyName;}}
+		public PropertyInfo[] FieldPropertyInfos {get {return fieldPropertyInfos.ToArray();}}
 		public string[] FieldNames {get {return fieldNames.ToArray();}}
-		
-		private string updateText;
-		public string UpdateText {get {return updateText;}}
-		
-		private string insertText;
-		public string InsertText {get {return insertText;}}
-		
-		// insert into articulo (nombre, precio, categoria) values (@nombre, @precio, @categoria)
-		
-		private string selectText;
-		public string SelectText {get {return selectText;}}
+
+		private string insert;
+		public string InsertText{ 
+			get { return insert; } 
+		}
+		private string update;
+		public string UpdateText{ 
+			get { return update; } 
+		}
+		private string select;
+		public string SelectText{ 
+			get { return select; } 
+		}
+
+		private static string formatparameter (string fiel){
+			return string.Format("{0}=@{0}",fiel);
+		}
+
+		private static string formatparameterSelect (string fiel){
+			return string.Format("@{0}",fiel);
+		}
 	}
 }
-
