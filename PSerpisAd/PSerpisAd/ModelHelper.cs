@@ -16,7 +16,7 @@ namespace Serpis.Ad
 			string keyName=null;
 			List<string> fieldNames= new List<string>();
 
-			/*obtenemos las propiedades del objeto que pasemos por parametro marcadas como key y field*/
+			
 			foreach(PropertyInfo propertyInfo in type.GetProperties()){
 				if (propertyInfo.IsDefined (typeof(KeyAttribute), true))
 					keyName = propertyInfo.Name.ToLower();
@@ -25,7 +25,10 @@ namespace Serpis.Ad
 
 			}
 			string tableName = type.Name.ToLower();
-			return string.Format ("select {0} from {1} where {2}=",string.Join(", ",fieldNames),tableName,keyName);
+			return string.Format ("select {0} from {1} where {2}=",
+			                      String.Join(", ",fieldNames),
+			                      tableName,
+			                      keyName);
 			
 		}
 
@@ -37,7 +40,7 @@ namespace Serpis.Ad
 			object obj=Activator.CreateInstance(type);
 			foreach (PropertyInfo propertyInfo in type.GetProperties()) {
 				if (propertyInfo.IsDefined (typeof(KeyAttribute), true)) {
-					object value = convert (id, propertyInfo.PropertyType);//convertimos el id al tipo de destino
+					object value = convert (id, propertyInfo.PropertyType);
 					DbCommandUtil.AddParameter (select, propertyInfo.Name.ToLower (), value);
 					propertyInfo.SetValue (obj, value, null);
 
@@ -52,7 +55,7 @@ namespace Serpis.Ad
 			reader.Read ();
 			foreach(PropertyInfo propertyInfo in type.GetProperties()){
 				if (propertyInfo.IsDefined (typeof(FieldAttribute), true)) {
-					object value = convert (reader [propertyInfo.Name.ToLower ()], propertyInfo.PropertyType);//convertimos el id al tipo de destino
+					object value = convert (reader [propertyInfo.Name.ToLower ()], propertyInfo.PropertyType);
 					propertyInfo.SetValue (obj,value , null);
 				}
 
@@ -69,7 +72,7 @@ namespace Serpis.Ad
 			object obj=Activator.CreateInstance(type);
 			foreach (PropertyInfo propertyInfo in type.GetProperties()) {
 				if (propertyInfo.IsDefined (typeof(KeyAttribute), true)) {
-					object value = convert (id, propertyInfo.PropertyType);//convertimos el id al tipo de destino
+					object value = convert (id, propertyInfo.PropertyType);
 					DbCommandUtil.AddParameter (select, propertyInfo.Name.ToLower (), value);
 					propertyInfo.SetValue (obj, value, null);
 
@@ -80,7 +83,7 @@ namespace Serpis.Ad
 			reader.Read ();
 			foreach(PropertyInfo propertyInfo in type.GetProperties()){
 				if (propertyInfo.IsDefined (typeof(FieldAttribute), true)) {
-					object value = convert (reader [propertyInfo.Name.ToLower ()], propertyInfo.PropertyType);//convertimos el id al tipo de destino
+					object value = convert (reader [propertyInfo.Name.ToLower ()], propertyInfo.PropertyType);
 					propertyInfo.SetValue (obj,value , null);
 				}
 
@@ -113,7 +116,10 @@ namespace Serpis.Ad
 				}
 			}
 			string tableName = type.Name.ToLower();
-			return string.Format("Delete from {0} where {1}={2} ",tableName,keyField,keyParameter);
+			return string.Format("Delete from {0} where {1}={2} ",
+			                     tableName,
+			                     keyField,
+			                     keyParameter);
 		}
 
 		public static void Delete(object obj){
@@ -143,7 +149,10 @@ namespace Serpis.Ad
 
 			}
 			string tableName = type.Name.ToLower();
-			return string.Format("insert into {0} ({1}) values ( {2} ) ",tableName,String.Join(", ",fields),String.Join(", ",fieldParameters));
+			return string.Format("insert into {0} ({1}) values ( {2} ) ",
+			                     tableName,
+			                     String.Join(", ",fields),
+			                     String.Join(", ",fieldParameters));
 		}
 
 		public static void Insert(object obj){
@@ -168,28 +177,13 @@ namespace Serpis.Ad
 				fieldParameters.Add(formatparameter (propertyInfo.Name.ToLower ()));
 
 				string tableName = type.Name.ToLower();
-			return string.Format("update {0} set {1} where {2}",tableName,String.Join(", ",fieldParameters), keyParameter);
+			return string.Format("update {0} set {1} where {2}",
+			                     tableName,
+			                     String.Join(", ",fieldParameters), 
+			                     keyParameter);
 		}
 
-		public static void Save(object obj){
-			ModelInfo modelInfo = ModelInfoStore.Get (obj.GetType());
-			Type type = obj.GetType ();
-			IDbCommand updateDbCommand = App.Instance.DbConnection.CreateCommand ();
-			updateDbCommand.CommandText = modelInfo.UpdateText;
-			foreach (PropertyInfo propertyInfo in modelInfo.KeyPropertyInfo.GetType().GetProperties()) {
-					object valueType= propertyInfo.GetValue(obj,null);
-					DbCommandUtil.AddParameter(updateDbCommand, propertyInfo.Name.ToLower(),valueType);
-
-			}
-			foreach (PropertyInfo propertyInfo in modelInfo.FieldPropertyInfos) {
-				object valueType= propertyInfo.GetValue(obj,null);
-				DbCommandUtil.AddParameter(updateDbCommand, propertyInfo.Name.ToLower(),valueType);
-
-			}
-			updateDbCommand.ExecuteNonQuery ();
-		}
-
-		public static void Save2(object obj) {
+		public static void Save(object obj) {
 			Type type = obj.GetType ();
 			string keyName = null;
 			object keyValue = null;
@@ -202,7 +196,11 @@ namespace Serpis.Ad
 				}
 				else if (propertyInfo.IsDefined (typeof(FieldAttribute), true)) {
 					DbCommandUtil.AddParameter (updateDbCommand, propertyInfo.Name.ToLower (), propertyInfo.GetValue (obj ,null));
-					updateDbCommand.CommandText = String.Format("update {0} set {1}=@{2} where {3}={4}",tableName,propertyInfo.Name.ToLower (),propertyInfo.Name.ToLower (),keyName,keyValue);
+					updateDbCommand.CommandText = String.Format("update {0} set {1}=@{2} where {3}={4}",
+					                                            tableName,
+					                                            propertyInfo.Name.ToLower (),
+					                                            propertyInfo.Name.ToLower (),
+					                                            keyName,keyValue);
 					updateDbCommand.ExecuteNonQuery ();	
 				}
 
@@ -216,7 +214,7 @@ namespace Serpis.Ad
 			object keyValue = null;
 			List<object> fieldNames= new List<object>();
 			List<object> campos=new List<object>();
-			//IDbCommand updateDbCommand = App.Instance.DbConnection.CreateCommand ();
+		
 			foreach(PropertyInfo propertyInfo in type.GetProperties()){
 				if (propertyInfo.IsDefined (typeof(KeyAttribute), true)) {
 					keyName = propertyInfo.Name.ToLower ();
@@ -234,10 +232,11 @@ namespace Serpis.Ad
 			for(int i=0;i<campos.Count;i++){
 				aux.Add (fieldNames [i] + "=" + campos [i]);
 			}
-			//updateDbCommand.CommandText = String.Format("update {0} set {1} where {2}={3}",tableName,String.Join(", ",aux),keyName,keyValue);
-			//updateDbCommand.ExecuteNonQuery ();	
-
-			return String.Format("update {0} set {1} where {2}={3}",tableName,String.Join(", ",aux),keyName,keyValue);	
+			
+			return String.Format("update {0} set {1} where {2}={3}",
+			                     tableName,
+			                     String.Join(", ",aux),
+			                     keyName,keyValue);	
 		}
 
 

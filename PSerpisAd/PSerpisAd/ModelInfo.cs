@@ -20,7 +20,6 @@ namespace Serpis.Ad
 			fieldPropertyInfos=new List<PropertyInfo>();
 			fieldNames=new List<string>();
 			fieldNamesUpdate=new List<string>();
-			fieldNamesSelect=new List<string>();
 			fieldNamesInsert=new List<string>();
 			
 
@@ -34,7 +33,6 @@ namespace Serpis.Ad
 					fieldNames.Add (propertyInfo.Name.ToLower());
 					fieldNamesUpdate.Add (formatparameter(propertyInfo.Name.ToLower()));
 					fieldNamesInsert.Add (formatparameterSelect(propertyInfo.Name.ToLower()));
-					fieldNamesSelect.Add (propertyInfo.Name.ToLower());
 				}
 			}
 			insert = String.Format("insert into {0} ({1}) values ( {2} ) ",
@@ -42,7 +40,7 @@ namespace Serpis.Ad
 			                       String.Join(", ",fieldNames),
 			                       String.Join(", ",fieldNamesInsert));
 			select = String.Format ("select {0} from {1} where {2}",
-			                        String.Join(", ",fieldNamesSelect),
+			                        String.Join(", ",fieldNames),
 			                        tableName,
 			                        formatparameter (keyName));
 			update = String.Format("update {0} set {1} where {2}",
@@ -58,7 +56,6 @@ namespace Serpis.Ad
 			fieldPropertyInfos=new List<PropertyInfo>();
 			fieldNames=new List<string>();
 			fieldNamesUpdate=new List<string>();
-			fieldNamesSelect=new List<string>();
 			fieldNamesInsert=new List<string>();
 
 			foreach (PropertyInfo propertyInfo in type.GetProperties()) {
@@ -74,24 +71,12 @@ namespace Serpis.Ad
 							fieldNames.Add (propertyInfo.Name.ToLower());
 							fieldNamesUpdate.Add (formatparameter(propertyInfo.Name.ToLower()));
 							fieldNamesInsert.Add (formatparameterSelect(propertyInfo.Name.ToLower()));
-							fieldNamesSelect.Add (propertyInfo.Name.ToLower());
+							
 						}
 					}
 			}
 
-			insert = String.Format("insert into {0} ({1}) values ( {2} ) ",
-			                     tableName,
-			                     String.Join(", ",fieldNames),
-			                     String.Join(", ",fieldNamesInsert));
-			select = String.Format ("select {0} from {1} where {2}",
-			                        string.Join(", ",fieldNamesSelect),
-			                        tableName,
-			                        formatparameter (keyName));
-			update = String.Format("update {0} set {1} where {2}",
-			                     tableName,
-			                     String.Join(", ",fieldNamesUpdate),
-			                     formatparameter (keyName));
-
+			
 		}
 
 		private string tableName;
@@ -99,7 +84,6 @@ namespace Serpis.Ad
 		private List<string> fieldNames;
 		
 		private List<string> fieldNamesUpdate;
-		private List<string> fieldNamesSelect;
 		private List<string> fieldNamesInsert;
 		private string keyName;
 		private PropertyInfo keyPropertyInfo;

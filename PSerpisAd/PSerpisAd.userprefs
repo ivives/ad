@@ -1,20 +1,20 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="PSerpisAdTests/ModelInfoTest.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="PSerpisAd/ModelInfo.cs">
     <Files>
-      <File FileName="PSerpisAd/ModelInfo.cs" Line="108" Column="1" />
-      <File FileName="PSerpisAdTests/ModelInfoTest.cs" Line="95" Column="4" />
-      <File FileName="PSerpisAd/ModelHelper.cs" Line="65" Column="62" />
-      <File FileName="PSerpisAd/ModelInfoStore.cs" Line="32" Column="1" />
+      <File FileName="PSerpisAd/ModelInfo.cs" Line="120" Column="29" />
+      <File FileName="PSerpisAdTests/ModelInfoTest.cs" Line="88" Column="42" />
+      <File FileName="PSerpisAd/ModelHelper.cs" Line="1" Column="1" />
+      <File FileName="PSerpisAd/ModelInfoStore.cs" Line="1" Column="1" />
       <File FileName="PSerpisAdTests/ModelHelperTest.cs" Line="52" Column="50" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="PSerpisAd" expanded="True" />
-          <Node name="PSerpisAdTests" expanded="True">
-            <Node name="ModelInfoTest.cs" selected="True" />
+          <Node name="PSerpisAd" expanded="True">
+            <Node name="ModelInfo.cs" selected="True" />
           </Node>
+          <Node name="PSerpisAdTests" expanded="True" />
         </State>
       </Pad>
       <Pad Id="ClassPad">

@@ -60,7 +60,7 @@ namespace Serpis.Ad
 
 		}
 
-		//[Test ()]
+		
 		public void Save(){
 			string selectText;
 			string expected;
@@ -72,7 +72,7 @@ namespace Serpis.Ad
 			Assert.AreEqual (expected, selectText);
 
 			ModelHelperBar bar= new ModelHelperBar(3, "cat1",10);
-//			campos.Add ("10");
+
 			selectText = ModelHelper.SaveTest (bar);
 			expected = "update modelhelperbar set nombre=cat1, precio=10 where id=3";
 			Assert.AreEqual (expected, selectText);
